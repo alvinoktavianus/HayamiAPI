@@ -1,7 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace HayamiAPI.Models
 {
@@ -15,5 +14,7 @@ namespace HayamiAPI.Models
         public DateTime CreatedAt { get; set; }
         public DateTime UpdDate { get; set; }
         public string UserToken { get; set; }
+        [Index(IsUnique = true), MaxLength(100)]
+        public string UserEmail { get; set; }
     }
 }

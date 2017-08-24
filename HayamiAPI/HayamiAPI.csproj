@@ -104,6 +104,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Library\RandomAccessToken.cs" />
     <Compile Include="Migrations\201708241536065_InitialCreate.cs" />
     <Compile Include="Migrations\201708241536065_InitialCreate.Designer.cs">
       <DependentUpon>201708241536065_InitialCreate.cs</DependentUpon>
@@ -111,6 +112,10 @@
     <Compile Include="Migrations\201708241540213_AddAccessTokenToUsers.cs" />
     <Compile Include="Migrations\201708241540213_AddAccessTokenToUsers.Designer.cs">
       <DependentUpon>201708241540213_AddAccessTokenToUsers.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201708241601129_AddUserEmailToUsers.cs" />
+    <Compile Include="Migrations\201708241601129_AddUserEmailToUsers.Designer.cs">
+      <DependentUpon>201708241601129_AddUserEmailToUsers.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\User.cs" />
@@ -134,6 +139,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201708241540213_AddAccessTokenToUsers.resx">
       <DependentUpon>201708241540213_AddAccessTokenToUsers.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708241601129_AddUserEmailToUsers.resx">
+      <DependentUpon>201708241601129_AddUserEmailToUsers.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

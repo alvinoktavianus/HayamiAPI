@@ -10,9 +10,12 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using HayamiAPI;
 using HayamiAPI.Models;
+using HayamiAPI.Library;
+using CryptSharp;
 
 namespace HayamiAPI.Controllers
 {
+    [RoutePrefix("api/users")]
     public class UsersController : ApiController
     {
         private Context db = new Context();
@@ -71,19 +74,42 @@ namespace HayamiAPI.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        // POST: api/Users
-        [ResponseType(typeof(User))]
-        public IHttpActionResult PostUser(User user)
+        // POST: Register
+        [HttpPost, Route("register")]
+        public HttpResponseMessage Register(User user)
         {
-            if (!ModelState.IsValid)
+            User userData = new User()
             {
-                return BadRequest(ModelState);
-            }
+                UserName = user.UserName.Trim(),
+                UserPassword = Crypter.Blowfish.Crypt(user.UserPassword.Trim()),
+                UserToken = RandomAccessToken.GenerateToken(20),
+                UserEmail = user.UserEmail,
+                CreatedAt = DateTime.Today,
+                UpdDate = DateTime.Today
+            };
 
-            db.Users.Add(user);
+            db.Users.Add(userData);
             db.SaveChanges();
 
-            return CreatedAtRoute("DefaultApi", new { id = user.UserID }, user);
+            return Request.CreateResponse(HttpStatusCode.Created);
+        }
+
+        // POST: Login
+        [HttpPost, Route("login")]
+        public IHttpActionResult Login(User user)
+        {
+            string email = user.UserEmail.Trim();
+            string password = user.UserPassword.Trim();
+
+            User userData = db.Users.FirstOrDefault(u => u.UserEmail == email);
+            if (userData != null && Crypter.CheckPassword(password, userData.UserPassword))
+            {
+                return Ok(userData);
+            }
+            else
+            {
+                return NotFound();
+            }
         }
 
         // DELETE: api/Users/5
