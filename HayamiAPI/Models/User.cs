@@ -14,5 +14,6 @@ namespace HayamiAPI.Models
         public string UserImg { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime UpdDate { get; set; }
+        public string UserToken { get; set; }
     }
 }
