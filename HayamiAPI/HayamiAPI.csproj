@@ -100,6 +100,7 @@
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Context.cs" />
+    <Compile Include="Controllers\ModelsController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -117,7 +118,12 @@
     <Compile Include="Migrations\201708241601129_AddUserEmailToUsers.Designer.cs">
       <DependentUpon>201708241601129_AddUserEmailToUsers.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201708251525486_AddModelTable.cs" />
+    <Compile Include="Migrations\201708251525486_AddModelTable.Designer.cs">
+      <DependentUpon>201708251525486_AddModelTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\Model.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -142,6 +148,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201708241601129_AddUserEmailToUsers.resx">
       <DependentUpon>201708241601129_AddUserEmailToUsers.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708251525486_AddModelTable.resx">
+      <DependentUpon>201708251525486_AddModelTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

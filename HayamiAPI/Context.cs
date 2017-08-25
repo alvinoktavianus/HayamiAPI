@@ -19,6 +19,8 @@ namespace HayamiAPI
 
         public System.Data.Entity.DbSet<HayamiAPI.Models.User> Users { get; set; }
 
+        public System.Data.Entity.DbSet<HayamiAPI.Models.Model> Models { get; set; }
+
         // Add a DbSet for each entity type that you want to include in your model. For more information 
         // on configuring and using a Code First model, see http://go.microsoft.com/fwlink/?LinkId=390109.
 
