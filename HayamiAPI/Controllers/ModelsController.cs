@@ -13,6 +13,7 @@ using HayamiAPI.Models;
 
 namespace HayamiAPI.Controllers
 {
+    [RoutePrefix("api/models")]
     public class ModelsController : ApiController
     {
         private Context db = new Context();
@@ -71,36 +72,41 @@ namespace HayamiAPI.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        // POST: api/Models
-        [ResponseType(typeof(Model))]
-        public IHttpActionResult PostModel(Model model)
+        // POST: api/Models/new
+        [HttpPost, Route("new")]
+        public HttpResponseMessage New(Model model)
         {
-            if (!ModelState.IsValid)
+            //if (!ModelState.IsValid)
+            //{
+            //    return BadRequest(ModelState);
+            //}
+            Model newModel = new Model()
             {
-                return BadRequest(ModelState);
-            }
-
-            db.Models.Add(model);
+                ModelName = model.ModelName,
+                CreatedAt = DateTime.Today,
+                UpdDate = DateTime.Today
+            };
+            db.Models.Add(newModel);
             db.SaveChanges();
 
-            return CreatedAtRoute("DefaultApi", new { id = model.ModelID }, model);
+            return Request.CreateResponse(HttpStatusCode.Created);
         }
 
         // DELETE: api/Models/5
-        [ResponseType(typeof(Model))]
-        public IHttpActionResult DeleteModel(int id)
-        {
-            Model model = db.Models.Find(id);
-            if (model == null)
-            {
-                return NotFound();
-            }
+        //[ResponseType(typeof(Model))]
+        //public IHttpActionResult DeleteModel(int id)
+        //{
+        //    Model model = db.Models.Find(id);
+        //    if (model == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            db.Models.Remove(model);
-            db.SaveChanges();
+        //    db.Models.Remove(model);
+        //    db.SaveChanges();
 
-            return Ok(model);
-        }
+        //    return Ok(model);
+        //}
 
         protected override void Dispose(bool disposing)
         {
