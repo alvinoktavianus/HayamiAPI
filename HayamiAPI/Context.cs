@@ -21,10 +21,12 @@ namespace HayamiAPI
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            modelBuilder.Entity<Types>().Property(t => t.TypePrice).HasPrecision(23, 6);
+            modelBuilder.Entity<Models.Type>().Property(t => t.TypePrice).HasPrecision(23, 6);
         }
 
         public System.Data.Entity.DbSet<HayamiAPI.Models.User> Users { get; set; }
+
+        public System.Data.Entity.DbSet<HayamiAPI.Models.Type> Types { get; set; }
 
         public System.Data.Entity.DbSet<HayamiAPI.Models.Model> Models { get; set; }
 
