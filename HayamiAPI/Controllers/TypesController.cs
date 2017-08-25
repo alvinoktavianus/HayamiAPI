@@ -19,9 +19,30 @@ namespace HayamiAPI.Controllers
         private Context db = new Context();
 
         // GET: api/Types
-        public IQueryable<Models.Type> GetTypes()
+        public HttpResponseMessage GetTypes()
         {
-            return db.Types;
+            var token = Request.Headers;
+            if (!token.Contains("TOKEN"))
+            {
+                ResponseMessage message = new ResponseMessage()
+                {
+                    Code = "FORBIDDEN",
+                    Description = "Go away!"
+                };
+                return Request.CreateResponse(HttpStatusCode.Forbidden, message);
+            }
+            string accessToken = Request.Headers.GetValues("TOKEN").FirstOrDefault();
+            User userData = db.Users.FirstOrDefault(u => u.UserToken == accessToken);
+            if (userData == null)
+            {
+                ResponseMessage message = new ResponseMessage()
+                {
+                    Code = "FORBIDDEN",
+                    Description = "Go away!"
+                };
+                return Request.CreateResponse(HttpStatusCode.Forbidden, message);
+            }
+            return Request.CreateResponse(HttpStatusCode.OK, db.Types);
         }
 
         // GET: api/Types/5
