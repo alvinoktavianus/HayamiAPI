@@ -1,5 +1,6 @@
 namespace HayamiAPI
 {
+    using HayamiAPI.Models;
     using System;
     using System.Data.Entity;
     using System.Linq;
@@ -15,6 +16,12 @@ namespace HayamiAPI
         public Context()
             : base("name=Context")
         {
+        }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<Types>().Property(t => t.TypePrice).HasPrecision(23, 6);
         }
 
         public System.Data.Entity.DbSet<HayamiAPI.Models.User> Users { get; set; }
