@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
@@ -8,8 +6,8 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
-using HayamiAPI;
 using HayamiAPI.Models;
+using HayamiAPI.Library;
 
 namespace HayamiAPI.Controllers
 {
@@ -19,22 +17,28 @@ namespace HayamiAPI.Controllers
         private Context db = new Context();
 
         // GET: api/Models
-        public IQueryable<Model> GetModels()
+        public HttpResponseMessage GetModels()
         {
-            return db.Models;
+            var token = Request.Headers;
+            if (!token.Contains(Authentication.TOKEN_KEYWORD)) return Request.CreateResponse(HttpStatusCode.Forbidden, Authentication.CreateForbiddenResponseMessage());
+            string accessToken = Request.Headers.GetValues(Authentication.TOKEN_KEYWORD).FirstOrDefault();
+            if (Authentication.IsAuthenticated(accessToken)) return Request.CreateResponse(HttpStatusCode.Forbidden, Authentication.CreateForbiddenResponseMessage());
+
+            return Request.CreateResponse(HttpStatusCode.OK, db.Models);
         }
 
         // GET: api/Models/5
         [ResponseType(typeof(Model))]
-        public IHttpActionResult GetModel(int id)
+        public HttpResponseMessage GetModel(int id)
         {
-            Model model = db.Models.Find(id);
-            if (model == null)
-            {
-                return NotFound();
-            }
+            var token = Request.Headers;
+            if (!token.Contains(Authentication.TOKEN_KEYWORD)) return  Request.CreateResponse(HttpStatusCode.Forbidden, Authentication.CreateForbiddenResponseMessage());
+            string accessToken = Request.Headers.GetValues(Authentication.TOKEN_KEYWORD).FirstOrDefault();
+            if (Authentication.IsAuthenticated(accessToken)) return Request.CreateResponse(HttpStatusCode.Forbidden, Authentication.CreateForbiddenResponseMessage());
 
-            return Ok(model);
+            Model model = db.Models.Find(id);
+            if (model == null) return Request.CreateResponse(HttpStatusCode.NotFound, Authentication.CreateNotFoundResponseMessage());
+            return Request.CreateResponse(HttpStatusCode.NotFound, model);
         }
 
         // PUT: api/Models/5

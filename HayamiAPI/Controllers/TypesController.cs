@@ -22,20 +22,22 @@ namespace HayamiAPI.Controllers
             if (!token.Contains(Authentication.TOKEN_KEYWORD)) return Request.CreateResponse(HttpStatusCode.Forbidden, Authentication.CreateForbiddenResponseMessage());
             string accessToken = Request.Headers.GetValues(Authentication.TOKEN_KEYWORD).FirstOrDefault();
             if (Authentication.IsAuthenticated(accessToken)) return Request.CreateResponse(HttpStatusCode.Forbidden, Authentication.CreateForbiddenResponseMessage());
+
             return Request.CreateResponse(HttpStatusCode.OK, db.Types);
         }
 
         // GET: api/Types/5
         [ResponseType(typeof(Models.Type))]
-        public IHttpActionResult GetType(int id)
+        public HttpResponseMessage GetType(int id)
         {
-            Models.Type type = db.Types.Find(id);
-            if (type == null)
-            {
-                return NotFound();
-            }
+            var token = Request.Headers;
+            if (!token.Contains(Authentication.TOKEN_KEYWORD)) return Request.CreateResponse(HttpStatusCode.Forbidden, Authentication.CreateForbiddenResponseMessage());
+            string accessToken = Request.Headers.GetValues(Authentication.TOKEN_KEYWORD).FirstOrDefault();
+            if (Authentication.IsAuthenticated(accessToken)) return Request.CreateResponse(HttpStatusCode.Forbidden, Authentication.CreateForbiddenResponseMessage());
 
-            return Ok(type);
+            Models.Type type = db.Types.Find(id);
+            if (type == null) return Request.CreateResponse(HttpStatusCode.NotFound, Authentication.CreateNotFoundResponseMessage());
+            return Request.CreateResponse(HttpStatusCode.OK, type);
         }
 
         // PUT: api/Types/5
