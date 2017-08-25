@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
@@ -8,8 +6,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
-using HayamiAPI;
-using HayamiAPI.Models;
+using HayamiAPI.Library;
 
 namespace HayamiAPI.Controllers
 {
@@ -22,26 +19,9 @@ namespace HayamiAPI.Controllers
         public HttpResponseMessage GetTypes()
         {
             var token = Request.Headers;
-            if (!token.Contains("TOKEN"))
-            {
-                ResponseMessage message = new ResponseMessage()
-                {
-                    Code = "FORBIDDEN",
-                    Description = "Go away!"
-                };
-                return Request.CreateResponse(HttpStatusCode.Forbidden, message);
-            }
-            string accessToken = Request.Headers.GetValues("TOKEN").FirstOrDefault();
-            User userData = db.Users.FirstOrDefault(u => u.UserToken == accessToken);
-            if (userData == null)
-            {
-                ResponseMessage message = new ResponseMessage()
-                {
-                    Code = "FORBIDDEN",
-                    Description = "Go away!"
-                };
-                return Request.CreateResponse(HttpStatusCode.Forbidden, message);
-            }
+            if (!token.Contains(Authentication.TOKEN_KEYWORD)) return Request.CreateResponse(HttpStatusCode.Forbidden, Authentication.CreateForbiddenResponseMessage());
+            string accessToken = Request.Headers.GetValues(Authentication.TOKEN_KEYWORD).FirstOrDefault();
+            if (Authentication.IsAuthenticated(accessToken)) return Request.CreateResponse(HttpStatusCode.Forbidden, Authentication.CreateForbiddenResponseMessage());
             return Request.CreateResponse(HttpStatusCode.OK, db.Types);
         }
 
