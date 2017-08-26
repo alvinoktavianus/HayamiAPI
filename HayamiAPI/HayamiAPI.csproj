@@ -100,6 +100,7 @@
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Context.cs" />
+    <Compile Include="Controllers\CountersController.cs" />
     <Compile Include="Controllers\TypesController.cs" />
     <Compile Include="Controllers\ModelsController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
@@ -138,6 +139,9 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Library\Responses.cs" />
+    <Compile Include="Models\Responses.cs" />
+    <Compile Include="Models\Counter.cs" />
+    <Compile Include="Models\ResponseMessage.cs" />
     <Compile Include="Models\Type.cs" />
     <Compile Include="Models\Model.cs" />
     <Compile Include="Models\User.cs" />
