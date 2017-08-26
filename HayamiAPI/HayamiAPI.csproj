@@ -133,6 +133,10 @@
     <Compile Include="Migrations\201708251653169_MergeBranchToMaster1.Designer.cs">
       <DependentUpon>201708251653169_MergeBranchToMaster1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201708260755353_AddCountersModel.cs" />
+    <Compile Include="Migrations\201708260755353_AddCountersModel.Designer.cs">
+      <DependentUpon>201708260755353_AddCountersModel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\201708270655038_MergeBranchToMaster2.cs" />
     <Compile Include="Migrations\201708270655038_MergeBranchToMaster2.Designer.cs">
       <DependentUpon>201708270655038_MergeBranchToMaster2.cs</DependentUpon>
@@ -177,6 +181,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201708251653169_MergeBranchToMaster1.resx">
       <DependentUpon>201708251653169_MergeBranchToMaster1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708260755353_AddCountersModel.resx">
+      <DependentUpon>201708260755353_AddCountersModel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201708270655038_MergeBranchToMaster2.resx">
       <DependentUpon>201708270655038_MergeBranchToMaster2.cs</DependentUpon>
