@@ -145,7 +145,6 @@
     <Compile Include="Library\Responses.cs" />
     <Compile Include="Models\Responses.cs" />
     <Compile Include="Models\Counter.cs" />
-    <Compile Include="Models\ResponseMessage.cs" />
     <Compile Include="Models\Type.cs" />
     <Compile Include="Models\Model.cs" />
     <Compile Include="Models\User.cs" />
