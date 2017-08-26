@@ -12,6 +12,7 @@ namespace HayamiAPI.Models
         public string CounterCity { get; set; }
         public string CounterPosCode { get; set; }
         public string CounterPhone { get; set; }
+        [Index(IsUnique = true), MaxLength(100)]
         public string CounterEmail { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime UpdDate { get; set; }
