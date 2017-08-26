@@ -133,7 +133,7 @@
       <DependentUpon>201708251653169_MergeBranchToMaster1.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Models\ResponseMessage.cs" />
+    <Compile Include="Models\Responses.cs" />
     <Compile Include="Models\Type.cs" />
     <Compile Include="Models\Model.cs" />
     <Compile Include="Models\User.cs" />

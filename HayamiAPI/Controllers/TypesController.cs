@@ -7,6 +7,7 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
 using HayamiAPI.Library;
+using HayamiAPI.Models;
 
 namespace HayamiAPI.Controllers
 {
@@ -19,9 +20,9 @@ namespace HayamiAPI.Controllers
         public HttpResponseMessage GetTypes()
         {
             var token = Request.Headers;
-            if (!token.Contains(Authentication.TOKEN_KEYWORD)) return Request.CreateResponse(HttpStatusCode.Forbidden, Authentication.CreateForbiddenResponseMessage());
+            if (!token.Contains(Authentication.TOKEN_KEYWORD)) return Request.CreateResponse(HttpStatusCode.Forbidden, Responses.CreateForbiddenResponseMessage());
             string accessToken = Request.Headers.GetValues(Authentication.TOKEN_KEYWORD).FirstOrDefault();
-            if (Authentication.IsAuthenticated(accessToken)) return Request.CreateResponse(HttpStatusCode.Forbidden, Authentication.CreateForbiddenResponseMessage());
+            if (Authentication.IsAuthenticated(accessToken)) return Request.CreateResponse(HttpStatusCode.Forbidden, Responses.CreateForbiddenResponseMessage());
 
             return Request.CreateResponse(HttpStatusCode.OK, db.Types);
         }
@@ -31,12 +32,12 @@ namespace HayamiAPI.Controllers
         public HttpResponseMessage GetType(int id)
         {
             var token = Request.Headers;
-            if (!token.Contains(Authentication.TOKEN_KEYWORD)) return Request.CreateResponse(HttpStatusCode.Forbidden, Authentication.CreateForbiddenResponseMessage());
+            if (!token.Contains(Authentication.TOKEN_KEYWORD)) return Request.CreateResponse(HttpStatusCode.Forbidden, Responses.CreateForbiddenResponseMessage());
             string accessToken = Request.Headers.GetValues(Authentication.TOKEN_KEYWORD).FirstOrDefault();
-            if (Authentication.IsAuthenticated(accessToken)) return Request.CreateResponse(HttpStatusCode.Forbidden, Authentication.CreateForbiddenResponseMessage());
+            if (Authentication.IsAuthenticated(accessToken)) return Request.CreateResponse(HttpStatusCode.Forbidden, Responses.CreateForbiddenResponseMessage());
 
             Models.Type type = db.Types.Find(id);
-            if (type == null) return Request.CreateResponse(HttpStatusCode.NotFound, Authentication.CreateNotFoundResponseMessage());
+            if (type == null) return Request.CreateResponse(HttpStatusCode.NotFound, Responses.CreateNotFoundResponseMessage());
             return Request.CreateResponse(HttpStatusCode.OK, type);
         }
 

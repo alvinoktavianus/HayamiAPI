@@ -19,32 +19,5 @@ namespace HayamiAPI.Library
                 return true;
             }
         }
-
-        public static ResponseMessage CreateResponseMessage(string code, string description)
-        {
-            return new ResponseMessage()
-            {
-                Code = code,
-                Description = description
-            };
-        }
-
-        public static ResponseMessage CreateForbiddenResponseMessage()
-        {
-            return new ResponseMessage()
-            {
-                Code = "FORBIDDEN",
-                Description = "Go, Away!"
-            };
-        }
-
-        public static ResponseMessage CreateNotFoundResponseMessage()
-        {
-            return new ResponseMessage()
-            {
-                Code = "NOT_FOUND",
-                Description = "The data you are looking for are not found in our database"
-            };
-        }
     }
 }

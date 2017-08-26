@@ -20,9 +20,9 @@ namespace HayamiAPI.Controllers
         public HttpResponseMessage GetModels()
         {
             var token = Request.Headers;
-            if (!token.Contains(Authentication.TOKEN_KEYWORD)) return Request.CreateResponse(HttpStatusCode.Forbidden, Authentication.CreateForbiddenResponseMessage());
+            if (!token.Contains(Authentication.TOKEN_KEYWORD)) return Request.CreateResponse(HttpStatusCode.Forbidden, Responses.CreateForbiddenResponseMessage());
             string accessToken = Request.Headers.GetValues(Authentication.TOKEN_KEYWORD).FirstOrDefault();
-            if (Authentication.IsAuthenticated(accessToken)) return Request.CreateResponse(HttpStatusCode.Forbidden, Authentication.CreateForbiddenResponseMessage());
+            if (Authentication.IsAuthenticated(accessToken)) return Request.CreateResponse(HttpStatusCode.Forbidden, Responses.CreateForbiddenResponseMessage());
 
             return Request.CreateResponse(HttpStatusCode.OK, db.Models);
         }
@@ -32,12 +32,12 @@ namespace HayamiAPI.Controllers
         public HttpResponseMessage GetModel(int id)
         {
             var token = Request.Headers;
-            if (!token.Contains(Authentication.TOKEN_KEYWORD)) return  Request.CreateResponse(HttpStatusCode.Forbidden, Authentication.CreateForbiddenResponseMessage());
+            if (!token.Contains(Authentication.TOKEN_KEYWORD)) return  Request.CreateResponse(HttpStatusCode.Forbidden, Responses.CreateForbiddenResponseMessage());
             string accessToken = Request.Headers.GetValues(Authentication.TOKEN_KEYWORD).FirstOrDefault();
-            if (Authentication.IsAuthenticated(accessToken)) return Request.CreateResponse(HttpStatusCode.Forbidden, Authentication.CreateForbiddenResponseMessage());
+            if (Authentication.IsAuthenticated(accessToken)) return Request.CreateResponse(HttpStatusCode.Forbidden, Responses.CreateForbiddenResponseMessage());
 
             Model model = db.Models.Find(id);
-            if (model == null) return Request.CreateResponse(HttpStatusCode.NotFound, Authentication.CreateNotFoundResponseMessage());
+            if (model == null) return Request.CreateResponse(HttpStatusCode.NotFound, Responses.CreateNotFoundResponseMessage());
             return Request.CreateResponse(HttpStatusCode.NotFound, model);
         }
 
