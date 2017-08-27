@@ -98,7 +98,7 @@ namespace HayamiAPI.Controllers
                 CustEmail = customer.CustEmail,
                 CustExp = customer.CustExp,
                 CustDesc = customer.CustDesc,
-               
+                CounterID = customer.CounterID,
                 CreatedAt = DateTime.Today,
                 UpdDate = DateTime.Today
             };

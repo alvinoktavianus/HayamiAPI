@@ -17,10 +17,14 @@ namespace HayamiAPI.Models
         public string CustEmail { get; set; }
         public string CustExp { get; set; }
         public string CustDesc { get; set; }
-        public Counter Counter { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime UpdDate { get; set; }
         public string UpdatedBy { get; set; }
+        public int CounterID { get; set; }
+
+        // Relationship definition
+        [ForeignKey("CounterID")]
+        public Counter Counter { get; set; }
 
     }
 }

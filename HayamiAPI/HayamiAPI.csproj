@@ -151,6 +151,10 @@
     <Compile Include="Migrations\201708270729295_AddCustomerTableAndController.Designer.cs">
       <DependentUpon>201708270729295_AddCustomerTableAndController.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201708270932550_ChangeForeignKeyToCustomers.cs" />
+    <Compile Include="Migrations\201708270932550_ChangeForeignKeyToCustomers.Designer.cs">
+      <DependentUpon>201708270932550_ChangeForeignKeyToCustomers.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Library\Responses.cs" />
     <Compile Include="Models\Counter.cs" />
@@ -203,6 +207,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201708270729295_AddCustomerTableAndController.resx">
       <DependentUpon>201708270729295_AddCustomerTableAndController.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708270932550_ChangeForeignKeyToCustomers.resx">
+      <DependentUpon>201708270932550_ChangeForeignKeyToCustomers.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
