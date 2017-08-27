@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
@@ -8,7 +6,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
-using HayamiAPI;
+using HayamiAPI.Library;
 using HayamiAPI.Models;
 
 namespace HayamiAPI.Controllers
@@ -19,22 +17,30 @@ namespace HayamiAPI.Controllers
         private Context db = new Context();
 
         // GET: api/Counters
-        public IQueryable<Counter> GetCounters()
+        public HttpResponseMessage GetCounters()
         {
-            return db.Counters;
+            var token = Request.Headers;
+            if (!token.Contains(Authentication.TOKEN_KEYWORD)) return Request.CreateResponse(HttpStatusCode.Forbidden, Responses.CreateForbiddenResponseMessage());
+            string accessToken = Request.Headers.GetValues(Authentication.TOKEN_KEYWORD).FirstOrDefault();
+            if (Authentication.IsAuthenticated(accessToken)) return Request.CreateResponse(HttpStatusCode.Forbidden, Responses.CreateForbiddenResponseMessage());
+
+            return Request.CreateResponse(HttpStatusCode.OK, db.Counters);
+
         }
 
         // GET: api/Counters/5
         [ResponseType(typeof(Counter))]
-        public IHttpActionResult GetCounter(int id)
+        public HttpResponseMessage GetCounter(int id)
         {
-            Counter counter = db.Counters.Find(id);
-            if (counter == null)
-            {
-                return NotFound();
-            }
+            var token = Request.Headers;
+            if (!token.Contains(Authentication.TOKEN_KEYWORD)) return Request.CreateResponse(HttpStatusCode.Forbidden, Responses.CreateForbiddenResponseMessage());
+            string accessToken = Request.Headers.GetValues(Authentication.TOKEN_KEYWORD).FirstOrDefault();
+            if (Authentication.IsAuthenticated(accessToken)) return Request.CreateResponse(HttpStatusCode.Forbidden, Responses.CreateForbiddenResponseMessage());
 
-            return Ok(counter);
+            Counter counter = db.Counters.Find(id);
+            if (counter == null) return Request.CreateResponse(HttpStatusCode.NotFound, Responses.CreateNotFoundResponseMessage());
+            return Request.CreateResponse(HttpStatusCode.OK, counter);
+
         }
 
         // PUT: api/Counters/5
@@ -73,35 +79,48 @@ namespace HayamiAPI.Controllers
         }
 
         // POST: api/Counters
-        [ResponseType(typeof(Counter))]
-        public IHttpActionResult PostCounter(Counter counter)
+        [HttpPost, Route("new")]
+        public HttpResponseMessage PostCounter(Counter counter)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+            var token = Request.Headers;
+            if (!token.Contains(Authentication.TOKEN_KEYWORD)) return Request.CreateResponse(HttpStatusCode.Forbidden, Responses.CreateForbiddenResponseMessage());
+            string accessToken = Request.Headers.GetValues(Authentication.TOKEN_KEYWORD).FirstOrDefault();
+            if (Authentication.IsAuthenticated(accessToken)) return Request.CreateResponse(HttpStatusCode.Forbidden, Responses.CreateForbiddenResponseMessage());
 
-            db.Counters.Add(counter);
+            var newCounter = new Counter()
+            {
+                CounterName = counter.CounterName,
+                CounterAddr = counter.CounterAddr,
+                CounterCity = counter.CounterCity,
+                CounterPosCode = counter.CounterPosCode,
+                CounterPhone = counter.CounterPhone,
+                CounterEmail = counter.CounterEmail,
+                CreatedAt = DateTime.Today,
+                UpdDate = DateTime.Today
+            };
+            
+            db.Counters.Add(newCounter);
             db.SaveChanges();
 
-            return CreatedAtRoute("DefaultApi", new { id = counter.CounterID }, counter);
+            return Request.CreateResponse(HttpStatusCode.Created);
+
         }
 
         // DELETE: api/Counters/5
-        [ResponseType(typeof(Counter))]
-        public IHttpActionResult DeleteCounter(int id)
-        {
-            Counter counter = db.Counters.Find(id);
-            if (counter == null)
-            {
-                return NotFound();
-            }
+        //[ResponseType(typeof(Counter))]
+        //public IHttpActionResult DeleteCounter(int id)
+        //{
+        //    Counter counter = db.Counters.Find(id);
+        //    if (counter == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            db.Counters.Remove(counter);
-            db.SaveChanges();
+        //    db.Counters.Remove(counter);
+        //    db.SaveChanges();
 
-            return Ok(counter);
-        }
+        //    return Ok(counter);
+        //}
 
         protected override void Dispose(bool disposing)
         {
