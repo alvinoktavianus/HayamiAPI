@@ -13,45 +13,44 @@ using HayamiAPI.Models;
 
 namespace HayamiAPI.Controllers
 {
-    [RoutePrefix("api/counters")]
-    public class CountersController : ApiController
+    public class CustomersController : ApiController
     {
         private Context db = new Context();
 
-        // GET: api/Counters
-        public IQueryable<Counter> GetCounters()
+        // GET: api/Customers
+        public IQueryable<Customer> GetCustomers()
         {
-            return db.Counters;
+            return db.Customers;
         }
 
-        // GET: api/Counters/5
-        [ResponseType(typeof(Counter))]
-        public IHttpActionResult GetCounter(int id)
+        // GET: api/Customers/5
+        [ResponseType(typeof(Customer))]
+        public IHttpActionResult GetCustomer(int id)
         {
-            Counter counter = db.Counters.Find(id);
-            if (counter == null)
+            Customer customer = db.Customers.Find(id);
+            if (customer == null)
             {
                 return NotFound();
             }
 
-            return Ok(counter);
+            return Ok(customer);
         }
 
-        // PUT: api/Counters/5
+        // PUT: api/Customers/5
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutCounter(int id, Counter counter)
+        public IHttpActionResult PutCustomer(int id, Customer customer)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != counter.CounterID)
+            if (id != customer.CustomerID)
             {
                 return BadRequest();
             }
 
-            db.Entry(counter).State = EntityState.Modified;
+            db.Entry(customer).State = EntityState.Modified;
 
             try
             {
@@ -59,7 +58,7 @@ namespace HayamiAPI.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!CounterExists(id))
+                if (!CustomerExists(id))
                 {
                     return NotFound();
                 }
@@ -72,35 +71,35 @@ namespace HayamiAPI.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        // POST: api/Counters
-        [ResponseType(typeof(Counter))]
-        public IHttpActionResult PostCounter(Counter counter)
+        // POST: api/Customers
+        [ResponseType(typeof(Customer))]
+        public IHttpActionResult PostCustomer(Customer customer)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            db.Counters.Add(counter);
+            db.Customers.Add(customer);
             db.SaveChanges();
 
-            return CreatedAtRoute("DefaultApi", new { id = counter.CounterID }, counter);
+            return CreatedAtRoute("DefaultApi", new { id = customer.CustomerID }, customer);
         }
 
-        // DELETE: api/Counters/5
-        [ResponseType(typeof(Counter))]
-        public IHttpActionResult DeleteCounter(int id)
+        // DELETE: api/Customers/5
+        [ResponseType(typeof(Customer))]
+        public IHttpActionResult DeleteCustomer(int id)
         {
-            Counter counter = db.Counters.Find(id);
-            if (counter == null)
+            Customer customer = db.Customers.Find(id);
+            if (customer == null)
             {
                 return NotFound();
             }
 
-            db.Counters.Remove(counter);
+            db.Customers.Remove(customer);
             db.SaveChanges();
 
-            return Ok(counter);
+            return Ok(customer);
         }
 
         protected override void Dispose(bool disposing)
@@ -112,9 +111,9 @@ namespace HayamiAPI.Controllers
             base.Dispose(disposing);
         }
 
-        private bool CounterExists(int id)
+        private bool CustomerExists(int id)
         {
-            return db.Counters.Count(e => e.CounterID == id) > 0;
+            return db.Customers.Count(e => e.CustomerID == id) > 0;
         }
     }
 }

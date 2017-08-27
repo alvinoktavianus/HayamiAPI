@@ -80,6 +80,11 @@ namespace HayamiAPI.Controllers
         [HttpPost, Route("new")]
         public HttpResponseMessage PostType(Models.Type type)
         {
+            var token = Request.Headers;
+            if (!token.Contains(Authentication.TOKEN_KEYWORD)) return Request.CreateResponse(HttpStatusCode.Forbidden, Responses.CreateForbiddenResponseMessage());
+            string accessToken = Request.Headers.GetValues(Authentication.TOKEN_KEYWORD).FirstOrDefault();
+            if (Authentication.IsAuthenticated(accessToken)) return Request.CreateResponse(HttpStatusCode.Forbidden, Responses.CreateForbiddenResponseMessage());
+
             var newType = new Models.Type()
             {
                 TypeName = type.TypeName,

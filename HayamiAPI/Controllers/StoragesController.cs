@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
@@ -8,32 +6,40 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
-using HayamiAPI;
+using HayamiAPI.Library;
 using HayamiAPI.Models;
 
 namespace HayamiAPI.Controllers
 {
+    [RoutePrefix("api/storages")]
     public class StoragesController : ApiController
     {
         private Context db = new Context();
 
         // GET: api/Storages
-        public IQueryable<Storage> GetStorages()
+        public HttpResponseMessage GetStorages()
         {
-            return db.Storages;
+            var token = Request.Headers;
+            if (!token.Contains(Authentication.TOKEN_KEYWORD)) return Request.CreateResponse(HttpStatusCode.Forbidden, Responses.CreateForbiddenResponseMessage());
+            string accessToken = Request.Headers.GetValues(Authentication.TOKEN_KEYWORD).FirstOrDefault();
+            if (Authentication.IsAuthenticated(accessToken)) return Request.CreateResponse(HttpStatusCode.Forbidden, Responses.CreateForbiddenResponseMessage());
+
+            return Request.CreateResponse(HttpStatusCode.OK, db.Storages);
+
         }
 
         // GET: api/Storages/5
         [ResponseType(typeof(Storage))]
-        public IHttpActionResult GetStorage(int id)
+        public HttpResponseMessage GetStorage(int id)
         {
-            Storage storage = db.Storages.Find(id);
-            if (storage == null)
-            {
-                return NotFound();
-            }
+            var token = Request.Headers;
+            if (!token.Contains(Authentication.TOKEN_KEYWORD)) return Request.CreateResponse(HttpStatusCode.Forbidden, Responses.CreateForbiddenResponseMessage());
+            string accessToken = Request.Headers.GetValues(Authentication.TOKEN_KEYWORD).FirstOrDefault();
+            if (Authentication.IsAuthenticated(accessToken)) return Request.CreateResponse(HttpStatusCode.Forbidden, Responses.CreateForbiddenResponseMessage());
 
-            return Ok(storage);
+            Storage storage = db.Storages.Find(id);
+            if (storage == null) return Request.CreateResponse(HttpStatusCode.NotFound, Responses.CreateNotFoundResponseMessage());
+            return Request.CreateResponse(HttpStatusCode.OK, storage);
         }
 
         // PUT: api/Storages/5
@@ -72,35 +78,45 @@ namespace HayamiAPI.Controllers
         }
 
         // POST: api/Storages
-        [ResponseType(typeof(Storage))]
-        public IHttpActionResult PostStorage(Storage storage)
+        [HttpPost, Route("new")]
+        public HttpResponseMessage PostStorage(Storage storage)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+            var token = Request.Headers;
+            if (!token.Contains(Authentication.TOKEN_KEYWORD)) return Request.CreateResponse(HttpStatusCode.Forbidden, Responses.CreateForbiddenResponseMessage());
+            string accessToken = Request.Headers.GetValues(Authentication.TOKEN_KEYWORD).FirstOrDefault();
+            if (Authentication.IsAuthenticated(accessToken)) return Request.CreateResponse(HttpStatusCode.Forbidden, Responses.CreateForbiddenResponseMessage());
 
-            db.Storages.Add(storage);
+            var newStorage = new Storage()
+            {
+                StorageName = storage.StorageName,
+                StorageCapacity = storage.StorageCapacity,
+                StorageStock = storage.StorageStock,
+                StoragePrior = storage.StoragePrior,
+                CreatedAt = DateTime.Today,
+                UpdDate = DateTime.Today
+            };
+            
+            db.Storages.Add(newStorage);
             db.SaveChanges();
 
-            return CreatedAtRoute("DefaultApi", new { id = storage.StorageID }, storage);
+            return Request.CreateResponse(HttpStatusCode.Created);
         }
 
         // DELETE: api/Storages/5
-        [ResponseType(typeof(Storage))]
-        public IHttpActionResult DeleteStorage(int id)
-        {
-            Storage storage = db.Storages.Find(id);
-            if (storage == null)
-            {
-                return NotFound();
-            }
+        //[ResponseType(typeof(Storage))]
+        //public IHttpActionResult DeleteStorage(int id)
+        //{
+        //    Storage storage = db.Storages.Find(id);
+        //    if (storage == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            db.Storages.Remove(storage);
-            db.SaveChanges();
+        //    db.Storages.Remove(storage);
+        //    db.SaveChanges();
 
-            return Ok(storage);
-        }
+        //    return Ok(storage);
+        //}
 
         protected override void Dispose(bool disposing)
         {
