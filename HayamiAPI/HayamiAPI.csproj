@@ -101,6 +101,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Context.cs" />
     <Compile Include="Controllers\CountersController.cs" />
+    <Compile Include="Controllers\StoragesController.cs" />
     <Compile Include="Controllers\TypesController.cs" />
     <Compile Include="Controllers\ModelsController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
@@ -141,10 +142,15 @@
     <Compile Include="Migrations\201708270655038_MergeBranchToMaster2.Designer.cs">
       <DependentUpon>201708270655038_MergeBranchToMaster2.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201708270657381_AddStorageToModel.cs" />
+    <Compile Include="Migrations\201708270657381_AddStorageToModel.Designer.cs">
+      <DependentUpon>201708270657381_AddStorageToModel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Library\Responses.cs" />
     <Compile Include="Models\Responses.cs" />
     <Compile Include="Models\Counter.cs" />
+    <Compile Include="Models\Storage.cs" />
     <Compile Include="Models\Type.cs" />
     <Compile Include="Models\Model.cs" />
     <Compile Include="Models\User.cs" />
@@ -183,6 +189,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201708260755353_AddCountersModel.resx">
       <DependentUpon>201708260755353_AddCountersModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708270657381_AddStorageToModel.resx">
+      <DependentUpon>201708270657381_AddStorageToModel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201708270655038_MergeBranchToMaster2.resx">
       <DependentUpon>201708270655038_MergeBranchToMaster2.cs</DependentUpon>
