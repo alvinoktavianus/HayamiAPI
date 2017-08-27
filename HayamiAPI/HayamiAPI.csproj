@@ -148,7 +148,6 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Library\Responses.cs" />
-    <Compile Include="Models\Responses.cs" />
     <Compile Include="Models\Counter.cs" />
     <Compile Include="Models\Storage.cs" />
     <Compile Include="Models\Type.cs" />
