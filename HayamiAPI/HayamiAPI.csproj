@@ -108,6 +108,7 @@
     <Compile Include="Context.cs" />
     <Compile Include="Controllers\CountersController.cs" />
     <Compile Include="Controllers\CustomersController.cs" />
+    <Compile Include="Controllers\ProductHdsController.cs" />
     <Compile Include="Controllers\StoragesController.cs" />
     <Compile Include="Controllers\TypesController.cs" />
     <Compile Include="Controllers\ModelsController.cs" />
@@ -161,10 +162,15 @@
     <Compile Include="Migrations\201708270932550_ChangeForeignKeyToCustomers.Designer.cs">
       <DependentUpon>201708270932550_ChangeForeignKeyToCustomers.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201708301257079_AddProductHdsToModel.cs" />
+    <Compile Include="Migrations\201708301257079_AddProductHdsToModel.Designer.cs">
+      <DependentUpon>201708301257079_AddProductHdsToModel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Library\Responses.cs" />
     <Compile Include="Models\Counter.cs" />
     <Compile Include="Models\Customer.cs" />
+    <Compile Include="Models\ProductHd.cs" />
     <Compile Include="Models\Storage.cs" />
     <Compile Include="Models\Type.cs" />
     <Compile Include="Models\Model.cs" />
@@ -216,6 +222,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201708270932550_ChangeForeignKeyToCustomers.resx">
       <DependentUpon>201708270932550_ChangeForeignKeyToCustomers.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708301257079_AddProductHdsToModel.resx">
+      <DependentUpon>201708301257079_AddProductHdsToModel.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
