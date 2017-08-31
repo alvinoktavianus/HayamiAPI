@@ -63,6 +63,9 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
+    <Reference Include="System.Web.Cors, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Cors.5.2.3\lib\net45\System.Web.Cors.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -72,6 +75,9 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Http.Cors, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Cors.5.2.3\lib\net45\System.Web.Http.Cors.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
@@ -102,6 +108,7 @@
     <Compile Include="Context.cs" />
     <Compile Include="Controllers\CountersController.cs" />
     <Compile Include="Controllers\CustomersController.cs" />
+    <Compile Include="Controllers\ProductHdsController.cs" />
     <Compile Include="Controllers\StoragesController.cs" />
     <Compile Include="Controllers\TypesController.cs" />
     <Compile Include="Controllers\ModelsController.cs" />
@@ -151,10 +158,19 @@
     <Compile Include="Migrations\201708270729295_AddCustomerTableAndController.Designer.cs">
       <DependentUpon>201708270729295_AddCustomerTableAndController.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201708270932550_ChangeForeignKeyToCustomers.cs" />
+    <Compile Include="Migrations\201708270932550_ChangeForeignKeyToCustomers.Designer.cs">
+      <DependentUpon>201708270932550_ChangeForeignKeyToCustomers.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201708301257079_AddProductHdsToModel.cs" />
+    <Compile Include="Migrations\201708301257079_AddProductHdsToModel.Designer.cs">
+      <DependentUpon>201708301257079_AddProductHdsToModel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Library\Responses.cs" />
     <Compile Include="Models\Counter.cs" />
     <Compile Include="Models\Customer.cs" />
+    <Compile Include="Models\ProductHd.cs" />
     <Compile Include="Models\Storage.cs" />
     <Compile Include="Models\Type.cs" />
     <Compile Include="Models\Model.cs" />
@@ -203,6 +219,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201708270729295_AddCustomerTableAndController.resx">
       <DependentUpon>201708270729295_AddCustomerTableAndController.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708270932550_ChangeForeignKeyToCustomers.resx">
+      <DependentUpon>201708270932550_ChangeForeignKeyToCustomers.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708301257079_AddProductHdsToModel.resx">
+      <DependentUpon>201708301257079_AddProductHdsToModel.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

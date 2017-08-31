@@ -11,52 +11,51 @@ using HayamiAPI.Models;
 
 namespace HayamiAPI.Controllers
 {
-    [RoutePrefix("api/counters")]
-    public class CountersController : ApiController
+    [RoutePrefix("api/products")]
+    public class ProductHdsController : ApiController
     {
         private Context db = new Context();
 
-        // GET: api/Counters
-        public HttpResponseMessage GetCounters()
+        // GET: api/ProductHds
+        public HttpResponseMessage GetProductHds()
         {
             var token = Request.Headers;
             if (!token.Contains(Authentication.TOKEN_KEYWORD)) return Request.CreateResponse(HttpStatusCode.Forbidden, Responses.CreateForbiddenResponseMessage());
             string accessToken = Request.Headers.GetValues(Authentication.TOKEN_KEYWORD).FirstOrDefault();
             if (Authentication.IsAuthenticated(accessToken)) return Request.CreateResponse(HttpStatusCode.Forbidden, Responses.CreateForbiddenResponseMessage());
 
-            return Request.CreateResponse(HttpStatusCode.OK, db.Counters);
-
+            return Request.CreateResponse(HttpStatusCode.OK, db.ProductHds);
         }
 
-        // GET: api/Counters/5
-        [ResponseType(typeof(Counter))]
-        public HttpResponseMessage GetCounter(int id)
+        // GET: api/ProductHds/5
+        [ResponseType(typeof(ProductHd))]
+        public HttpResponseMessage GetProductHd(int id)
         {
             var token = Request.Headers;
             if (!token.Contains(Authentication.TOKEN_KEYWORD)) return Request.CreateResponse(HttpStatusCode.Forbidden, Responses.CreateForbiddenResponseMessage());
             string accessToken = Request.Headers.GetValues(Authentication.TOKEN_KEYWORD).FirstOrDefault();
             if (Authentication.IsAuthenticated(accessToken)) return Request.CreateResponse(HttpStatusCode.Forbidden, Responses.CreateForbiddenResponseMessage());
 
-            Counter counter = db.Counters.Find(id);
-            if (counter == null) return Request.CreateResponse(HttpStatusCode.NotFound, Responses.CreateNotFoundResponseMessage());
-            return Request.CreateResponse(HttpStatusCode.OK, counter);
+            ProductHd productHd = db.ProductHds.Find(id);
+            if (productHd == null) return Request.CreateResponse(HttpStatusCode.NotFound, Responses.CreateNotFoundResponseMessage());
+            return Request.CreateResponse(HttpStatusCode.OK, productHd);
         }
 
-        // PUT: api/Counters/5
+        // PUT: api/ProductHds/5
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutCounter(int id, Counter counter)
+        public IHttpActionResult PutProductHd(int id, ProductHd productHd)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != counter.CounterID)
+            if (id != productHd.ProductHdID)
             {
                 return BadRequest();
             }
 
-            db.Entry(counter).State = EntityState.Modified;
+            db.Entry(productHd).State = EntityState.Modified;
 
             try
             {
@@ -64,7 +63,7 @@ namespace HayamiAPI.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!CounterExists(id))
+                if (!ProductHdExists(id))
                 {
                     return NotFound();
                 }
@@ -77,49 +76,47 @@ namespace HayamiAPI.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        // POST: api/Counters
+        // POST: api/ProductHds
         [HttpPost, Route("new")]
-        public HttpResponseMessage PostCounter(Counter counter)
+        public HttpResponseMessage PostProductHd(ProductHd productHd)
         {
             var token = Request.Headers;
             if (!token.Contains(Authentication.TOKEN_KEYWORD)) return Request.CreateResponse(HttpStatusCode.Forbidden, Responses.CreateForbiddenResponseMessage());
             string accessToken = Request.Headers.GetValues(Authentication.TOKEN_KEYWORD).FirstOrDefault();
             if (Authentication.IsAuthenticated(accessToken)) return Request.CreateResponse(HttpStatusCode.Forbidden, Responses.CreateForbiddenResponseMessage());
 
-            var newCounter = new Counter()
+            var newCounter = new ProductHd()
             {
-                CounterName = counter.CounterName,
-                CounterAddr = counter.CounterAddr,
-                CounterCity = counter.CounterCity,
-                CounterPosCode = counter.CounterPosCode,
-                CounterPhone = counter.CounterPhone,
-                CounterEmail = counter.CounterEmail,
+                ProductCode = productHd.ProductCode,
+                ProductName = productHd.ProductName,
+                ProductDesc = productHd.ProductDesc,
+                TypeID = productHd.TypeID,
+                ModelID = productHd.ModelID,
                 CreatedAt = DateTime.Today,
                 UpdDate = DateTime.Today
             };
-            
-            db.Counters.Add(newCounter);
+
+            db.ProductHds.Add(productHd);
             db.SaveChanges();
 
             return Request.CreateResponse(HttpStatusCode.Created);
-
         }
 
-        // DELETE: api/Counters/5
-        //[ResponseType(typeof(Counter))]
-        //public IHttpActionResult DeleteCounter(int id)
-        //{
-        //    Counter counter = db.Counters.Find(id);
-        //    if (counter == null)
-        //    {
-        //        return NotFound();
-        //    }
+        // DELETE: api/ProductHds/5
+        [ResponseType(typeof(ProductHd))]
+        public IHttpActionResult DeleteProductHd(int id)
+        {
+            ProductHd productHd = db.ProductHds.Find(id);
+            if (productHd == null)
+            {
+                return NotFound();
+            }
 
-        //    db.Counters.Remove(counter);
-        //    db.SaveChanges();
+            db.ProductHds.Remove(productHd);
+            db.SaveChanges();
 
-        //    return Ok(counter);
-        //}
+            return Ok(productHd);
+        }
 
         protected override void Dispose(bool disposing)
         {
@@ -130,9 +127,9 @@ namespace HayamiAPI.Controllers
             base.Dispose(disposing);
         }
 
-        private bool CounterExists(int id)
+        private bool ProductHdExists(int id)
         {
-            return db.Counters.Count(e => e.CounterID == id) > 0;
+            return db.ProductHds.Count(e => e.ProductHdID == id) > 0;
         }
     }
 }

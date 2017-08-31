@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
@@ -8,32 +6,41 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
-using HayamiAPI;
+using HayamiAPI.Library;
 using HayamiAPI.Models;
 
 namespace HayamiAPI.Controllers
 {
+    [RoutePrefix("api/customers")]
     public class CustomersController : ApiController
     {
         private Context db = new Context();
 
         // GET: api/Customers
-        public IQueryable<Customer> GetCustomers()
+        public HttpResponseMessage GetCustomers()
         {
-            return db.Customers;
+            var token = Request.Headers;
+            if (!token.Contains(Authentication.TOKEN_KEYWORD)) return Request.CreateResponse(HttpStatusCode.Forbidden, Responses.CreateForbiddenResponseMessage());
+            string accessToken = Request.Headers.GetValues(Authentication.TOKEN_KEYWORD).FirstOrDefault();
+            if (Authentication.IsAuthenticated(accessToken)) return Request.CreateResponse(HttpStatusCode.Forbidden, Responses.CreateForbiddenResponseMessage());
+
+            return Request.CreateResponse(HttpStatusCode.OK, db.Customers);
+
         }
 
         // GET: api/Customers/5
         [ResponseType(typeof(Customer))]
-        public IHttpActionResult GetCustomer(int id)
+        public HttpResponseMessage GetCustomer(int id)
         {
-            Customer customer = db.Customers.Find(id);
-            if (customer == null)
-            {
-                return NotFound();
-            }
+            var token = Request.Headers;
+            if (!token.Contains(Authentication.TOKEN_KEYWORD)) return Request.CreateResponse(HttpStatusCode.Forbidden, Responses.CreateForbiddenResponseMessage());
+            string accessToken = Request.Headers.GetValues(Authentication.TOKEN_KEYWORD).FirstOrDefault();
+            if (Authentication.IsAuthenticated(accessToken)) return Request.CreateResponse(HttpStatusCode.Forbidden, Responses.CreateForbiddenResponseMessage());
 
-            return Ok(customer);
+            Customer customer = db.Customers.Find(id);
+            if (customer == null) return Request.CreateResponse(HttpStatusCode.NotFound, Responses.CreateNotFoundResponseMessage());
+            return Request.CreateResponse(HttpStatusCode.OK, customer);
+
         }
 
         // PUT: api/Customers/5
@@ -72,18 +79,34 @@ namespace HayamiAPI.Controllers
         }
 
         // POST: api/Customers
-        [ResponseType(typeof(Customer))]
-        public IHttpActionResult PostCustomer(Customer customer)
+        [HttpPost, Route("new")]
+        public HttpResponseMessage PostCustomer(Customer customer)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+            var token = Request.Headers;
+            if (!token.Contains(Authentication.TOKEN_KEYWORD)) return Request.CreateResponse(HttpStatusCode.Forbidden, Responses.CreateForbiddenResponseMessage());
+            string accessToken = Request.Headers.GetValues(Authentication.TOKEN_KEYWORD).FirstOrDefault();
+            if (Authentication.IsAuthenticated(accessToken)) return Request.CreateResponse(HttpStatusCode.Forbidden, Responses.CreateForbiddenResponseMessage());
 
-            db.Customers.Add(customer);
+            var newCustomer = new Customer()
+            {
+                CustCode = customer.CustCode,
+                CustName = customer.CustName,
+                CustAddr = customer.CustAddr,
+                CustCity = customer.CustCity,
+                CustPosCode = customer.CustPosCode,
+                CustPhone = customer.CustPhone,
+                CustEmail = customer.CustEmail,
+                CustExp = customer.CustExp,
+                CustDesc = customer.CustDesc,
+                CounterID = customer.CounterID,
+                CreatedAt = DateTime.Today,
+                UpdDate = DateTime.Today
+            };
+
+            db.Customers.Add(newCustomer);
             db.SaveChanges();
 
-            return CreatedAtRoute("DefaultApi", new { id = customer.CustomerID }, customer);
+            return Request.CreateResponse(HttpStatusCode.Created);
         }
 
         // DELETE: api/Customers/5
