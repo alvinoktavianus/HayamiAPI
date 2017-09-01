@@ -18,7 +18,7 @@ namespace HayamiAPI.Models
         // Relationship definition
         [ForeignKey("ProductHdID")]
         public virtual ProductHd ProductHd { get; set; }
-        [ForeignKey("StorageID")]
-        public virtual Storage Storage { get; set; }
+        //[ForeignKey("StorageID")]
+        //public virtual Storage Storage { get; set; }
     }
 }
