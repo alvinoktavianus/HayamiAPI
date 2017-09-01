@@ -108,6 +108,7 @@
     <Compile Include="Context.cs" />
     <Compile Include="Controllers\CountersController.cs" />
     <Compile Include="Controllers\CustomersController.cs" />
+    <Compile Include="Controllers\ProductDtsController.cs" />
     <Compile Include="Controllers\ProductHdsController.cs" />
     <Compile Include="Controllers\StoragesController.cs" />
     <Compile Include="Controllers\TypesController.cs" />
@@ -170,10 +171,15 @@
     <Compile Include="Migrations\201709011226437_AddImagePathToProductHd.Designer.cs">
       <DependentUpon>201709011226437_AddImagePathToProductHd.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201709011607170_OneToManyRelationshipProductHdDt.cs" />
+    <Compile Include="Migrations\201709011607170_OneToManyRelationshipProductHdDt.Designer.cs">
+      <DependentUpon>201709011607170_OneToManyRelationshipProductHdDt.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Library\Responses.cs" />
     <Compile Include="Models\Counter.cs" />
     <Compile Include="Models\Customer.cs" />
+    <Compile Include="Models\ProductDt.cs" />
     <Compile Include="Models\ProductHd.cs" />
     <Compile Include="Models\Storage.cs" />
     <Compile Include="Models\Type.cs" />
@@ -232,6 +238,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201709011226437_AddImagePathToProductHd.resx">
       <DependentUpon>201709011226437_AddImagePathToProductHd.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201709011607170_OneToManyRelationshipProductHdDt.resx">
+      <DependentUpon>201709011607170_OneToManyRelationshipProductHdDt.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
