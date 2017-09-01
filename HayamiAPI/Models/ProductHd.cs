@@ -21,14 +21,12 @@ namespace HayamiAPI.Models
         public string ImagePath5 { get; set; }
         public int TypeID { get; set; }
         public int ModelID { get; set; }
-        public int ProductDtID { get; set; }
         
         // Relationship definition
         [ForeignKey("TypeID")]
         public Type Type { get; set; }
         [ForeignKey("ModelID")]
         public Model Model { get; set; }
-        [ForeignKey("ProductDtID")]
         public virtual ICollection<ProductDt> ProductDts { get; set; }
         
     }

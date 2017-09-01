@@ -175,6 +175,14 @@
     <Compile Include="Migrations\201709011607170_OneToManyRelationshipProductHdDt.Designer.cs">
       <DependentUpon>201709011607170_OneToManyRelationshipProductHdDt.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201709011620290_SynchronizedRelationshipOnProductHd.cs" />
+    <Compile Include="Migrations\201709011620290_SynchronizedRelationshipOnProductHd.Designer.cs">
+      <DependentUpon>201709011620290_SynchronizedRelationshipOnProductHd.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201709011627381_AddRelationshipBetweenStorageAndProductDts.cs" />
+    <Compile Include="Migrations\201709011627381_AddRelationshipBetweenStorageAndProductDts.Designer.cs">
+      <DependentUpon>201709011627381_AddRelationshipBetweenStorageAndProductDts.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Library\Responses.cs" />
     <Compile Include="Models\Counter.cs" />
@@ -241,6 +249,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201709011607170_OneToManyRelationshipProductHdDt.resx">
       <DependentUpon>201709011607170_OneToManyRelationshipProductHdDt.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201709011620290_SynchronizedRelationshipOnProductHd.resx">
+      <DependentUpon>201709011620290_SynchronizedRelationshipOnProductHd.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201709011627381_AddRelationshipBetweenStorageAndProductDts.resx">
+      <DependentUpon>201709011627381_AddRelationshipBetweenStorageAndProductDts.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

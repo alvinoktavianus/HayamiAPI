@@ -1,6 +1,5 @@
 ﻿using System;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+using System.Collections.Generic;
 
 namespace HayamiAPI.Models
 {
@@ -12,5 +11,6 @@ namespace HayamiAPI.Models
         public DateTime UpdDate { get; set; }
         public string UpdatedBy { get; set; }
         
+        public ICollection<ProductHd> ProductHds { get; set; }
     }
 }

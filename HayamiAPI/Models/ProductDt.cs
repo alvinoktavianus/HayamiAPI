@@ -13,9 +13,12 @@ namespace HayamiAPI.Models
         public DateTime UpdDate { get; set; }
         public string UpdatedBy { get; set; }
         public int ProductHdID { get; set; }
+        public int StorageID { get; set; }
 
         // Relationship definition
         [ForeignKey("ProductHdID")]
         public virtual ProductHd ProductHd { get; set; }
+        [ForeignKey("StorageID")]
+        public virtual Storage Storage { get; set; }
     }
 }

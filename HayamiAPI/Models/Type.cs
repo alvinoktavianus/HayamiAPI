@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace HayamiAPI.Models
 {
@@ -10,5 +11,8 @@ namespace HayamiAPI.Models
         public DateTime CreatedAt { get; set; }
         public DateTime UpdDate { get; set; }
         public string UpdatedBy { get; set; }
+
+        // Relationship definition
+        public virtual ICollection<ProductHd> ProductHds { get; set; }
     }
 }
