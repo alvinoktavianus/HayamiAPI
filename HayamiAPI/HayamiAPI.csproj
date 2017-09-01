@@ -166,6 +166,10 @@
     <Compile Include="Migrations\201708301257079_AddProductHdsToModel.Designer.cs">
       <DependentUpon>201708301257079_AddProductHdsToModel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201709011226437_AddImagePathToProductHd.cs" />
+    <Compile Include="Migrations\201709011226437_AddImagePathToProductHd.Designer.cs">
+      <DependentUpon>201709011226437_AddImagePathToProductHd.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Library\Responses.cs" />
     <Compile Include="Models\Counter.cs" />
@@ -225,6 +229,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201708301257079_AddProductHdsToModel.resx">
       <DependentUpon>201708301257079_AddProductHdsToModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201709011226437_AddImagePathToProductHd.resx">
+      <DependentUpon>201709011226437_AddImagePathToProductHd.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

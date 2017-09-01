@@ -15,6 +15,11 @@ namespace HayamiAPI.Models
         public string UpdatedBy { get; set; }
         public int TypeID { get; set; }
         public int ModelID { get; set; }
+        public string ImagePath1 { get; set; }
+        public string ImagePath2 { get; set; }
+        public string ImagePath3 { get; set; }
+        public string ImagePath4 { get; set; }
+        public string ImagePath5 { get; set; }
 
         // Relationship definition
         [ForeignKey("TypeID")]
