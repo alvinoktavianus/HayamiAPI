@@ -1,12 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
 
 namespace HayamiAPI.Models
 {
     public class ProductHd
     {
+        public ProductHd()
+        {
+            ProductDts = new List<ProductDt>();
+        }
+
         public int ProductHdID { get; set; }
         public string ProductCode { get; set; }
         public string ProductName { get; set; }

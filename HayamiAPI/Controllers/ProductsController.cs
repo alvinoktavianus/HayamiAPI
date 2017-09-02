@@ -25,7 +25,10 @@ namespace HayamiAPI.Controllers
             string accessToken = Request.Headers.GetValues(Authentication.TOKEN_KEYWORD).FirstOrDefault();
             if (Authentication.IsAuthenticated(accessToken)) return Request.CreateResponse(HttpStatusCode.Forbidden, Responses.CreateForbiddenResponseMessage());
 
-            return Request.CreateResponse(HttpStatusCode.OK, db.ProductHds);
+            var products = db.ProductHds
+                .Include(ph => ph.ProductDts)
+                .ToList();
+            return Request.CreateResponse(HttpStatusCode.OK, products);
         }
 
         // GET: api/ProductHds/5
@@ -39,7 +42,8 @@ namespace HayamiAPI.Controllers
 
             ProductHd productHd = db.ProductHds.Find(id);
             if (productHd == null) return Request.CreateResponse(HttpStatusCode.NotFound, Responses.CreateNotFoundResponseMessage());
-            else productHd.ProductDts = db.ProductDts.Where(s => s.ProductHdID == productHd.ProductHdID).ToList();
+
+            productHd.ProductDts = db.ProductDts.Where(s => s.ProductHdID == productHd.ProductHdID).ToList();
             return Request.CreateResponse(HttpStatusCode.OK, productHd);
         }
 
