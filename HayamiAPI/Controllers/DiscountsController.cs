@@ -95,9 +95,7 @@ namespace HayamiAPI.Controllers
 
             var newDiscount = new Discount()
             {
-                DiscDivide = discount.DiscDivide,
-                CreatedAt = DateTime.Today,
-                UpdDate = DateTime.Today
+                DiscDivide = discount.DiscDivide
             };
 
             db.Discounts.Add(discount);

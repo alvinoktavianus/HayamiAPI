@@ -6,6 +6,12 @@ namespace HayamiAPI.Models
 {
     public class Discount
     {
+        public Discount()
+        {
+            CreatedAt = DateTime.Now;
+            UpdDate = DateTime.Now;
+        }
+
         public int DiscountID { get; set; }
         public int DiscDivide { get; set; }
         public DateTime CreatedAt { get; set; }
@@ -14,7 +20,7 @@ namespace HayamiAPI.Models
         public int CustomerID { get; set; }
         
         // Relationship definition
-        [ForeignKey("CustomerID")]
-        public Customer Customer { get; set; }
+        //[ForeignKey("CustomerID")]
+        //public Customer Customer { get; set; }
     }
 }
