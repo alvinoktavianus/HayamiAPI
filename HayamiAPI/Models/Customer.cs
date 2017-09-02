@@ -23,8 +23,8 @@ namespace HayamiAPI.Models
         public int CounterID { get; set; }
 
         // Relationship definition
-        [ForeignKey("CounterID")]
-        public Counter Counter { get; set; }
+        //[ForeignKey("CounterID")]
+        //public Counter Counter { get; set; }
 
     }
 }
