@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -8,6 +6,7 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using HayamiAPI.Library;
 using HayamiAPI.Models;
+using System.Diagnostics;
 
 namespace HayamiAPI.Controllers
 {
@@ -19,6 +18,8 @@ namespace HayamiAPI.Controllers
         // GET: api/Customers
         public HttpResponseMessage GetCustomers()
         {
+            db.Database.Log = (message) => Debug.WriteLine(message);
+
             var token = Request.Headers;
             if (!token.Contains(Authentication.TOKEN_KEYWORD)) return Request.CreateResponse(HttpStatusCode.Forbidden, Responses.CreateForbiddenResponseMessage());
             string accessToken = Request.Headers.GetValues(Authentication.TOKEN_KEYWORD).FirstOrDefault();
@@ -32,6 +33,8 @@ namespace HayamiAPI.Controllers
         [ResponseType(typeof(Customer))]
         public HttpResponseMessage GetCustomer(int id)
         {
+            db.Database.Log = (message) => Debug.WriteLine(message);
+
             var token = Request.Headers;
             if (!token.Contains(Authentication.TOKEN_KEYWORD)) return Request.CreateResponse(HttpStatusCode.Forbidden, Responses.CreateForbiddenResponseMessage());
             string accessToken = Request.Headers.GetValues(Authentication.TOKEN_KEYWORD).FirstOrDefault();
@@ -44,44 +47,46 @@ namespace HayamiAPI.Controllers
         }
 
         // PUT: api/Customers/5
-        [ResponseType(typeof(void))]
-        public IHttpActionResult PutCustomer(int id, Customer customer)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+        //[ResponseType(typeof(void))]
+        //public IHttpActionResult PutCustomer(int id, Customer customer)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return BadRequest(ModelState);
+        //    }
 
-            if (id != customer.CustomerID)
-            {
-                return BadRequest();
-            }
+        //    if (id != customer.CustomerID)
+        //    {
+        //        return BadRequest();
+        //    }
 
-            db.Entry(customer).State = EntityState.Modified;
+        //    db.Entry(customer).State = EntityState.Modified;
 
-            try
-            {
-                db.SaveChanges();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!CustomerExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+        //    try
+        //    {
+        //        db.SaveChanges();
+        //    }
+        //    catch (DbUpdateConcurrencyException)
+        //    {
+        //        if (!CustomerExists(id))
+        //        {
+        //            return NotFound();
+        //        }
+        //        else
+        //        {
+        //            throw;
+        //        }
+        //    }
 
-            return StatusCode(HttpStatusCode.NoContent);
-        }
+        //    return StatusCode(HttpStatusCode.NoContent);
+        //}
 
         // POST: api/Customers
         [HttpPost, Route("new")]
         public HttpResponseMessage PostCustomer(Customer customer)
         {
+            db.Database.Log = (message) => Debug.WriteLine(message);
+
             var token = Request.Headers;
             if (!token.Contains(Authentication.TOKEN_KEYWORD)) return Request.CreateResponse(HttpStatusCode.Forbidden, Responses.CreateForbiddenResponseMessage());
             string accessToken = Request.Headers.GetValues(Authentication.TOKEN_KEYWORD).FirstOrDefault();
@@ -110,20 +115,20 @@ namespace HayamiAPI.Controllers
         }
 
         // DELETE: api/Customers/5
-        [ResponseType(typeof(Customer))]
-        public IHttpActionResult DeleteCustomer(int id)
-        {
-            Customer customer = db.Customers.Find(id);
-            if (customer == null)
-            {
-                return NotFound();
-            }
+        //[ResponseType(typeof(Customer))]
+        //public IHttpActionResult DeleteCustomer(int id)
+        //{
+        //    Customer customer = db.Customers.Find(id);
+        //    if (customer == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            db.Customers.Remove(customer);
-            db.SaveChanges();
+        //    db.Customers.Remove(customer);
+        //    db.SaveChanges();
 
-            return Ok(customer);
-        }
+        //    return Ok(customer);
+        //}
 
         protected override void Dispose(bool disposing)
         {

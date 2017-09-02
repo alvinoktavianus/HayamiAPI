@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -8,6 +6,7 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using HayamiAPI.Library;
 using HayamiAPI.Models;
+using System.Diagnostics;
 
 namespace HayamiAPI.Controllers
 {
@@ -19,6 +18,8 @@ namespace HayamiAPI.Controllers
         // GET: api/Counters
         public HttpResponseMessage GetCounters()
         {
+            db.Database.Log = (message) => Debug.WriteLine(message);
+
             var token = Request.Headers;
             if (!token.Contains(Authentication.TOKEN_KEYWORD)) return Request.CreateResponse(HttpStatusCode.Forbidden, Responses.CreateForbiddenResponseMessage());
             string accessToken = Request.Headers.GetValues(Authentication.TOKEN_KEYWORD).FirstOrDefault();
@@ -32,6 +33,8 @@ namespace HayamiAPI.Controllers
         [ResponseType(typeof(Counter))]
         public HttpResponseMessage GetCounter(int id)
         {
+            db.Database.Log = (message) => Debug.WriteLine(message);
+
             var token = Request.Headers;
             if (!token.Contains(Authentication.TOKEN_KEYWORD)) return Request.CreateResponse(HttpStatusCode.Forbidden, Responses.CreateForbiddenResponseMessage());
             string accessToken = Request.Headers.GetValues(Authentication.TOKEN_KEYWORD).FirstOrDefault();
@@ -43,44 +46,46 @@ namespace HayamiAPI.Controllers
         }
 
         // PUT: api/Counters/5
-        [ResponseType(typeof(void))]
-        public IHttpActionResult PutCounter(int id, Counter counter)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+        //[ResponseType(typeof(void))]
+        //public IHttpActionResult PutCounter(int id, Counter counter)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return BadRequest(ModelState);
+        //    }
 
-            if (id != counter.CounterID)
-            {
-                return BadRequest();
-            }
+        //    if (id != counter.CounterID)
+        //    {
+        //        return BadRequest();
+        //    }
 
-            db.Entry(counter).State = EntityState.Modified;
+        //    db.Entry(counter).State = EntityState.Modified;
 
-            try
-            {
-                db.SaveChanges();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!CounterExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+        //    try
+        //    {
+        //        db.SaveChanges();
+        //    }
+        //    catch (DbUpdateConcurrencyException)
+        //    {
+        //        if (!CounterExists(id))
+        //        {
+        //            return NotFound();
+        //        }
+        //        else
+        //        {
+        //            throw;
+        //        }
+        //    }
 
-            return StatusCode(HttpStatusCode.NoContent);
-        }
+        //    return StatusCode(HttpStatusCode.NoContent);
+        //}
 
         // POST: api/Counters
         [HttpPost, Route("new")]
         public HttpResponseMessage PostCounter(Counter counter)
         {
+            db.Database.Log = (message) => Debug.WriteLine(message);
+
             var token = Request.Headers;
             if (!token.Contains(Authentication.TOKEN_KEYWORD)) return Request.CreateResponse(HttpStatusCode.Forbidden, Responses.CreateForbiddenResponseMessage());
             string accessToken = Request.Headers.GetValues(Authentication.TOKEN_KEYWORD).FirstOrDefault();

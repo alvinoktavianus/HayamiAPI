@@ -8,6 +8,7 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using HayamiAPI.Library;
 using HayamiAPI.Models;
+using System.Diagnostics;
 
 namespace HayamiAPI.Controllers
 {
@@ -19,6 +20,8 @@ namespace HayamiAPI.Controllers
         // GET: api/Types
         public HttpResponseMessage GetTypes()
         {
+            db.Database.Log = (message) => Debug.WriteLine(message);
+
             var token = Request.Headers;
             if (!token.Contains(Authentication.TOKEN_KEYWORD)) return Request.CreateResponse(HttpStatusCode.Forbidden, Responses.CreateForbiddenResponseMessage());
             string accessToken = Request.Headers.GetValues(Authentication.TOKEN_KEYWORD).FirstOrDefault();
@@ -31,6 +34,8 @@ namespace HayamiAPI.Controllers
         [ResponseType(typeof(Models.Type))]
         public HttpResponseMessage GetType(int id)
         {
+            db.Database.Log = (message) => Debug.WriteLine(message);
+
             var token = Request.Headers;
             if (!token.Contains(Authentication.TOKEN_KEYWORD)) return Request.CreateResponse(HttpStatusCode.Forbidden, Responses.CreateForbiddenResponseMessage());
             string accessToken = Request.Headers.GetValues(Authentication.TOKEN_KEYWORD).FirstOrDefault();
@@ -42,44 +47,46 @@ namespace HayamiAPI.Controllers
         }
 
         // PUT: api/Types/5
-        [ResponseType(typeof(void))]
-        public IHttpActionResult PutType(int id, Models.Type type)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+        //[ResponseType(typeof(void))]
+        //public IHttpActionResult PutType(int id, Models.Type type)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return BadRequest(ModelState);
+        //    }
 
-            if (id != type.TypeID)
-            {
-                return BadRequest();
-            }
+        //    if (id != type.TypeID)
+        //    {
+        //        return BadRequest();
+        //    }
 
-            db.Entry(type).State = EntityState.Modified;
+        //    db.Entry(type).State = EntityState.Modified;
 
-            try
-            {
-                db.SaveChanges();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!TypeExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+        //    try
+        //    {
+        //        db.SaveChanges();
+        //    }
+        //    catch (DbUpdateConcurrencyException)
+        //    {
+        //        if (!TypeExists(id))
+        //        {
+        //            return NotFound();
+        //        }
+        //        else
+        //        {
+        //            throw;
+        //        }
+        //    }
 
-            return StatusCode(HttpStatusCode.NoContent);
-        }
+        //    return StatusCode(HttpStatusCode.NoContent);
+        //}
 
         // POST: api/Types
         [HttpPost, Route("new")]
         public HttpResponseMessage PostType(Models.Type type)
         {
+            db.Database.Log = (message) => Debug.WriteLine(message);
+
             var token = Request.Headers;
             if (!token.Contains(Authentication.TOKEN_KEYWORD)) return Request.CreateResponse(HttpStatusCode.Forbidden, Responses.CreateForbiddenResponseMessage());
             string accessToken = Request.Headers.GetValues(Authentication.TOKEN_KEYWORD).FirstOrDefault();

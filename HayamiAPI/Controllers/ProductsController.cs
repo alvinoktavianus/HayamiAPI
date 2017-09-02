@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -9,6 +8,7 @@ using System.Web.Http.Description;
 using HayamiAPI.Library;
 using HayamiAPI.Models;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace HayamiAPI.Controllers
 {
@@ -20,6 +20,8 @@ namespace HayamiAPI.Controllers
         // GET: api/ProductHds
         public HttpResponseMessage GetProducts()
         {
+            db.Database.Log = (message) => Debug.WriteLine(message);
+
             var token = Request.Headers;
             if (!token.Contains(Authentication.TOKEN_KEYWORD)) return Request.CreateResponse(HttpStatusCode.Forbidden, Responses.CreateForbiddenResponseMessage());
             string accessToken = Request.Headers.GetValues(Authentication.TOKEN_KEYWORD).FirstOrDefault();
@@ -27,6 +29,7 @@ namespace HayamiAPI.Controllers
 
             var products = db.ProductHds
                 .Include(ph => ph.ProductDts)
+                .OrderByDescending(ph => ph.CreatedAt)
                 .ToList();
             return Request.CreateResponse(HttpStatusCode.OK, products);
         }
@@ -35,6 +38,8 @@ namespace HayamiAPI.Controllers
         [ResponseType(typeof(ProductHd))]
         public HttpResponseMessage GetProduct(int id)
         {
+            db.Database.Log = (message) => Debug.WriteLine(message);
+
             var token = Request.Headers;
             if (!token.Contains(Authentication.TOKEN_KEYWORD)) return Request.CreateResponse(HttpStatusCode.Forbidden, Responses.CreateForbiddenResponseMessage());
             string accessToken = Request.Headers.GetValues(Authentication.TOKEN_KEYWORD).FirstOrDefault();
@@ -48,44 +53,46 @@ namespace HayamiAPI.Controllers
         }
 
         // PUT: api/ProductHds/5
-        [ResponseType(typeof(void))]
-        public IHttpActionResult PutProduct(int id, ProductHd productHd)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+        //[ResponseType(typeof(void))]
+        //public IHttpActionResult PutProduct(int id, ProductHd productHd)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return BadRequest(ModelState);
+        //    }
 
-            if (id != productHd.ProductHdID)
-            {
-                return BadRequest();
-            }
+        //    if (id != productHd.ProductHdID)
+        //    {
+        //        return BadRequest();
+        //    }
 
-            db.Entry(productHd).State = EntityState.Modified;
+        //    db.Entry(productHd).State = EntityState.Modified;
 
-            try
-            {
-                db.SaveChanges();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!ProductExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+        //    try
+        //    {
+        //        db.SaveChanges();
+        //    }
+        //    catch (DbUpdateConcurrencyException)
+        //    {
+        //        if (!ProductExists(id))
+        //        {
+        //            return NotFound();
+        //        }
+        //        else
+        //        {
+        //            throw;
+        //        }
+        //    }
 
-            return StatusCode(HttpStatusCode.NoContent);
-        }
+        //    return StatusCode(HttpStatusCode.NoContent);
+        //}
 
         // POST: api/ProductHds
         [HttpPost, Route("new")]
         public HttpResponseMessage PostProduct(ProductHd productHd)
         {
+            db.Database.Log = (message) => Debug.WriteLine(message);
+
             var token = Request.Headers;
             if (!token.Contains(Authentication.TOKEN_KEYWORD)) return Request.CreateResponse(HttpStatusCode.Forbidden, Responses.CreateForbiddenResponseMessage());
             string accessToken = Request.Headers.GetValues(Authentication.TOKEN_KEYWORD).FirstOrDefault();
@@ -125,20 +132,20 @@ namespace HayamiAPI.Controllers
         }
 
         // DELETE: api/ProductHds/5
-        [ResponseType(typeof(ProductHd))]
-        public IHttpActionResult DeleteProduct(int id)
-        {
-            ProductHd productHd = db.ProductHds.Find(id);
-            if (productHd == null)
-            {
-                return NotFound();
-            }
+        //[ResponseType(typeof(ProductHd))]
+        //public IHttpActionResult DeleteProduct(int id)
+        //{
+        //    ProductHd productHd = db.ProductHds.Find(id);
+        //    if (productHd == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            db.ProductHds.Remove(productHd);
-            db.SaveChanges();
+        //    db.ProductHds.Remove(productHd);
+        //    db.SaveChanges();
 
-            return Ok(productHd);
-        }
+        //    return Ok(productHd);
+        //}
 
         protected override void Dispose(bool disposing)
         {

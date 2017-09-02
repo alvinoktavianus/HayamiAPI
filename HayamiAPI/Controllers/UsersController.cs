@@ -1,14 +1,12 @@
 ﻿using System;
-using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using System.Web.Http.Description;
 using HayamiAPI.Models;
 using HayamiAPI.Library;
 using CryptSharp;
+using System.Diagnostics;
 
 namespace HayamiAPI.Controllers
 {
@@ -17,64 +15,47 @@ namespace HayamiAPI.Controllers
     {
         private Context db = new Context();
 
-        // GET: api/Users
-        public IQueryable<User> GetUsers()
-        {
-            return db.Users;
-        }
-
-        // GET: api/Users/5
-        [ResponseType(typeof(User))]
-        public IHttpActionResult GetUser(int id)
-        {
-            User user = db.Users.Find(id);
-            if (user == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(user);
-        }
-
         // PUT: api/Users/5
-        [ResponseType(typeof(void))]
-        public IHttpActionResult PutUser(int id, User user)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+        //[ResponseType(typeof(void))]
+        //public IHttpActionResult PutUser(int id, User user)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return BadRequest(ModelState);
+        //    }
 
-            if (id != user.UserID)
-            {
-                return BadRequest();
-            }
+        //    if (id != user.UserID)
+        //    {
+        //        return BadRequest();
+        //    }
 
-            db.Entry(user).State = EntityState.Modified;
+        //    db.Entry(user).State = EntityState.Modified;
 
-            try
-            {
-                db.SaveChanges();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!UserExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+        //    try
+        //    {
+        //        db.SaveChanges();
+        //    }
+        //    catch (DbUpdateConcurrencyException)
+        //    {
+        //        if (!UserExists(id))
+        //        {
+        //            return NotFound();
+        //        }
+        //        else
+        //        {
+        //            throw;
+        //        }
+        //    }
 
-            return StatusCode(HttpStatusCode.NoContent);
-        }
+        //    return StatusCode(HttpStatusCode.NoContent);
+        //}
 
         // POST: Register
         [HttpPost, Route("register")]
         public HttpResponseMessage Register(User user)
         {
+            db.Database.Log = (message) => Debug.WriteLine(message);
+
             User userData = new User()
             {
                 UserName = user.UserName.Trim(),
@@ -95,6 +76,8 @@ namespace HayamiAPI.Controllers
         [HttpPost, Route("login")]
         public IHttpActionResult Login(User user)
         {
+            db.Database.Log = (message) => Debug.WriteLine(message);
+
             string email = user.UserEmail.Trim();
             string password = user.UserPassword.Trim();
 
@@ -110,20 +93,20 @@ namespace HayamiAPI.Controllers
         }
 
         // DELETE: api/Users/5
-        [ResponseType(typeof(User))]
-        public IHttpActionResult DeleteUser(int id)
-        {
-            User user = db.Users.Find(id);
-            if (user == null)
-            {
-                return NotFound();
-            }
+        //[ResponseType(typeof(User))]
+        //public IHttpActionResult DeleteUser(int id)
+        //{
+        //    User user = db.Users.Find(id);
+        //    if (user == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            db.Users.Remove(user);
-            db.SaveChanges();
+        //    db.Users.Remove(user);
+        //    db.SaveChanges();
 
-            return Ok(user);
-        }
+        //    return Ok(user);
+        //}
 
         protected override void Dispose(bool disposing)
         {

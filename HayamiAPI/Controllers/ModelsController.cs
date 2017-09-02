@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -8,6 +6,7 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using HayamiAPI.Models;
 using HayamiAPI.Library;
+using System.Diagnostics;
 
 namespace HayamiAPI.Controllers
 {
@@ -19,6 +18,8 @@ namespace HayamiAPI.Controllers
         // GET: api/Models
         public HttpResponseMessage GetModels()
         {
+            db.Database.Log = (message) => Debug.WriteLine(message);
+
             var token = Request.Headers;
             if (!token.Contains(Authentication.TOKEN_KEYWORD)) return Request.CreateResponse(HttpStatusCode.Forbidden, Responses.CreateForbiddenResponseMessage());
             string accessToken = Request.Headers.GetValues(Authentication.TOKEN_KEYWORD).FirstOrDefault();
@@ -31,6 +32,8 @@ namespace HayamiAPI.Controllers
         [ResponseType(typeof(Model))]
         public HttpResponseMessage GetModel(int id)
         {
+            db.Database.Log = (message) => Debug.WriteLine(message);
+
             var token = Request.Headers;
             if (!token.Contains(Authentication.TOKEN_KEYWORD)) return  Request.CreateResponse(HttpStatusCode.Forbidden, Responses.CreateForbiddenResponseMessage());
             string accessToken = Request.Headers.GetValues(Authentication.TOKEN_KEYWORD).FirstOrDefault();
@@ -42,48 +45,46 @@ namespace HayamiAPI.Controllers
         }
 
         // PUT: api/Models/5
-        [ResponseType(typeof(void))]
-        public IHttpActionResult PutModel(int id, Model model)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+        //[ResponseType(typeof(void))]
+        //public IHttpActionResult PutModel(int id, Model model)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return BadRequest(ModelState);
+        //    }
 
-            if (id != model.ModelID)
-            {
-                return BadRequest();
-            }
+        //    if (id != model.ModelID)
+        //    {
+        //        return BadRequest();
+        //    }
 
-            db.Entry(model).State = EntityState.Modified;
+        //    db.Entry(model).State = EntityState.Modified;
 
-            try
-            {
-                db.SaveChanges();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!ModelExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+        //    try
+        //    {
+        //        db.SaveChanges();
+        //    }
+        //    catch (DbUpdateConcurrencyException)
+        //    {
+        //        if (!ModelExists(id))
+        //        {
+        //            return NotFound();
+        //        }
+        //        else
+        //        {
+        //            throw;
+        //        }
+        //    }
 
-            return StatusCode(HttpStatusCode.NoContent);
-        }
+        //    return StatusCode(HttpStatusCode.NoContent);
+        //}
 
         // POST: api/Models/new
         [HttpPost, Route("new")]
         public HttpResponseMessage New(Model model)
         {
-            //if (!ModelState.IsValid)
-            //{
-            //    return BadRequest(ModelState);
-            //}
+            db.Database.Log = (message) => Debug.WriteLine(message);
+
             Model newModel = new Model()
             {
                 ModelName = model.ModelName,

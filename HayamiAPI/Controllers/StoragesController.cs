@@ -8,6 +8,7 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using HayamiAPI.Library;
 using HayamiAPI.Models;
+using System.Diagnostics;
 
 namespace HayamiAPI.Controllers
 {
@@ -19,6 +20,8 @@ namespace HayamiAPI.Controllers
         // GET: api/Storages
         public HttpResponseMessage GetStorages()
         {
+            db.Database.Log = (message) => Debug.WriteLine(message);
+
             var token = Request.Headers;
             if (!token.Contains(Authentication.TOKEN_KEYWORD)) return Request.CreateResponse(HttpStatusCode.Forbidden, Responses.CreateForbiddenResponseMessage());
             string accessToken = Request.Headers.GetValues(Authentication.TOKEN_KEYWORD).FirstOrDefault();
@@ -32,6 +35,8 @@ namespace HayamiAPI.Controllers
         [ResponseType(typeof(Storage))]
         public HttpResponseMessage GetStorage(int id)
         {
+            db.Database.Log = (message) => Debug.WriteLine(message);
+
             var token = Request.Headers;
             if (!token.Contains(Authentication.TOKEN_KEYWORD)) return Request.CreateResponse(HttpStatusCode.Forbidden, Responses.CreateForbiddenResponseMessage());
             string accessToken = Request.Headers.GetValues(Authentication.TOKEN_KEYWORD).FirstOrDefault();
@@ -43,44 +48,46 @@ namespace HayamiAPI.Controllers
         }
 
         // PUT: api/Storages/5
-        [ResponseType(typeof(void))]
-        public IHttpActionResult PutStorage(int id, Storage storage)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+        //[ResponseType(typeof(void))]
+        //public IHttpActionResult PutStorage(int id, Storage storage)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return BadRequest(ModelState);
+        //    }
 
-            if (id != storage.StorageID)
-            {
-                return BadRequest();
-            }
+        //    if (id != storage.StorageID)
+        //    {
+        //        return BadRequest();
+        //    }
 
-            db.Entry(storage).State = EntityState.Modified;
+        //    db.Entry(storage).State = EntityState.Modified;
 
-            try
-            {
-                db.SaveChanges();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!StorageExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+        //    try
+        //    {
+        //        db.SaveChanges();
+        //    }
+        //    catch (DbUpdateConcurrencyException)
+        //    {
+        //        if (!StorageExists(id))
+        //        {
+        //            return NotFound();
+        //        }
+        //        else
+        //        {
+        //            throw;
+        //        }
+        //    }
 
-            return StatusCode(HttpStatusCode.NoContent);
-        }
+        //    return StatusCode(HttpStatusCode.NoContent);
+        //}
 
         // POST: api/Storages
         [HttpPost, Route("new")]
         public HttpResponseMessage PostStorage(Storage storage)
         {
+            db.Database.Log = (message) => Debug.WriteLine(message);
+
             var token = Request.Headers;
             if (!token.Contains(Authentication.TOKEN_KEYWORD)) return Request.CreateResponse(HttpStatusCode.Forbidden, Responses.CreateForbiddenResponseMessage());
             string accessToken = Request.Headers.GetValues(Authentication.TOKEN_KEYWORD).FirstOrDefault();
