@@ -104,8 +104,6 @@ namespace HayamiAPI.Controllers
                 CustExp = customer.CustExp,
                 CustDesc = customer.CustDesc,
                 CounterID = customer.CounterID,
-                CreatedAt = DateTime.Today,
-                UpdDate = DateTime.Today
             };
 
             db.Customers.Add(newCustomer);

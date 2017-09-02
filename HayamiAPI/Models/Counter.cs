@@ -6,6 +6,12 @@ namespace HayamiAPI.Models
 {
     public class Counter
     {
+        public Counter()
+        {
+            CreatedAt = DateTime.Now;
+            UpdDate = DateTime.Now;
+        }
+
         public int CounterID { get; set; }
         public string CounterName { get; set; }
         public string CounterAddr { get; set; }

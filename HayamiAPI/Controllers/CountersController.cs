@@ -99,8 +99,6 @@ namespace HayamiAPI.Controllers
                 CounterPosCode = counter.CounterPosCode,
                 CounterPhone = counter.CounterPhone,
                 CounterEmail = counter.CounterEmail,
-                CreatedAt = DateTime.Today,
-                UpdDate = DateTime.Today
             };
             
             db.Counters.Add(newCounter);

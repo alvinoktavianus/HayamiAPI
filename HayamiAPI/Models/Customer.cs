@@ -6,6 +6,12 @@ namespace HayamiAPI.Models
 {
     public class Customer
     {
+        public Customer()
+        {
+            CreatedAt = DateTime.Now;
+            UpdDate = DateTime.Now;
+        }
+
         public int CustomerID { get; set; }
         public string CustCode { get; set; }
         public string CustName { get; set; }
