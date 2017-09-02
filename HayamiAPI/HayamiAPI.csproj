@@ -195,6 +195,10 @@
     <Compile Include="Migrations\201709021109354_AddDiscountToModel.Designer.cs">
       <DependentUpon>201709021109354_AddDiscountToModel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201709021136065_MergeBranchToMaster4.cs" />
+    <Compile Include="Migrations\201709021136065_MergeBranchToMaster4.Designer.cs">
+      <DependentUpon>201709021136065_MergeBranchToMaster4.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Library\Responses.cs" />
     <Compile Include="Models\Counter.cs" />
@@ -277,6 +281,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201709020906227_RemoveRelationshipOnCustomers.resx">
       <DependentUpon>201709020906227_RemoveRelationshipOnCustomers.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201709021136065_MergeBranchToMaster4.resx">
+      <DependentUpon>201709021136065_MergeBranchToMaster4.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
