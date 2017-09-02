@@ -108,6 +108,7 @@
     <Compile Include="Context.cs" />
     <Compile Include="Controllers\CountersController.cs" />
     <Compile Include="Controllers\CustomersController.cs" />
+    <Compile Include="Controllers\DiscountsController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Controllers\StoragesController.cs" />
     <Compile Include="Controllers\TypesController.cs" />
@@ -186,10 +187,15 @@
     <Compile Include="Migrations\201709011825164_MergeBranch3.Designer.cs">
       <DependentUpon>201709011825164_MergeBranch3.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201709021109354_AddDiscountToModel.cs" />
+    <Compile Include="Migrations\201709021109354_AddDiscountToModel.Designer.cs">
+      <DependentUpon>201709021109354_AddDiscountToModel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Library\Responses.cs" />
     <Compile Include="Models\Counter.cs" />
     <Compile Include="Models\Customer.cs" />
+    <Compile Include="Models\Discount.cs" />
     <Compile Include="Models\ProductDt.cs" />
     <Compile Include="Models\ProductHd.cs" />
     <Compile Include="Models\Storage.cs" />
@@ -261,6 +267,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201709011825164_MergeBranch3.resx">
       <DependentUpon>201709011825164_MergeBranch3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201709021109354_AddDiscountToModel.resx">
+      <DependentUpon>201709021109354_AddDiscountToModel.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
