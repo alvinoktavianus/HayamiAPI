@@ -199,6 +199,10 @@
     <Compile Include="Migrations\201709021136065_MergeBranchToMaster4.Designer.cs">
       <DependentUpon>201709021136065_MergeBranchToMaster4.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201709021225219_RemoveRelationshipInType.cs" />
+    <Compile Include="Migrations\201709021225219_RemoveRelationshipInType.Designer.cs">
+      <DependentUpon>201709021225219_RemoveRelationshipInType.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Library\Responses.cs" />
     <Compile Include="Models\Counter.cs" />
@@ -284,6 +288,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201709021136065_MergeBranchToMaster4.resx">
       <DependentUpon>201709021136065_MergeBranchToMaster4.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201709021225219_RemoveRelationshipInType.resx">
+      <DependentUpon>201709021225219_RemoveRelationshipInType.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

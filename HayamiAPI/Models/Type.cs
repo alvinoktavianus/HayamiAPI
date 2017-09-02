@@ -13,6 +13,6 @@ namespace HayamiAPI.Models
         public string UpdatedBy { get; set; }
 
         // Relationship definition
-        public virtual ICollection<ProductHd> ProductHds { get; set; }
+        //public virtual ICollection<ProductHd> ProductHds { get; set; }
     }
 }
