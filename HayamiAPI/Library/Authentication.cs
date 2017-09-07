@@ -19,5 +19,13 @@ namespace HayamiAPI.Library
                 return true;
             }
         }
+
+        public static User GetCurrentUser(string accessToken)
+        {
+            using (var context = new Context())
+            {
+                return context.Users.FirstOrDefault(u => u.UserToken == accessToken);
+            }
+        }
     }
 }

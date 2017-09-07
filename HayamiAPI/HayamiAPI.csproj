@@ -115,6 +115,7 @@
     <Compile Include="Controllers\TypesController.cs" />
     <Compile Include="Controllers\ModelsController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
+    <Compile Include="CustomRequest\ChangePassword.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

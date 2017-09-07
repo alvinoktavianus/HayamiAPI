@@ -7,6 +7,8 @@ using HayamiAPI.Models;
 using HayamiAPI.Library;
 using CryptSharp;
 using System.Diagnostics;
+using HayamiAPI.CustomRequest;
+using System.Data.Entity;
 
 namespace HayamiAPI.Controllers
 {
@@ -90,6 +92,27 @@ namespace HayamiAPI.Controllers
             {
                 return NotFound();
             }
+        }
+
+        [HttpPut, Route("update")]
+        public HttpResponseMessage UpdateProfile(ChangePassword changePassword)
+        {
+            db.Database.Log = (message) => Debug.WriteLine(message);
+
+            var token = Request.Headers;
+            if (!token.Contains(Authentication.TOKEN_KEYWORD)) return Request.CreateResponse(HttpStatusCode.Forbidden, Responses.CreateForbiddenResponseMessage());
+            string accessToken = Request.Headers.GetValues(Authentication.TOKEN_KEYWORD).FirstOrDefault();
+            if (Authentication.IsAuthenticated(accessToken)) return Request.CreateResponse(HttpStatusCode.Forbidden, Responses.CreateForbiddenResponseMessage());
+
+            User oldUser = Authentication.GetCurrentUser(accessToken);
+            if (!Crypter.CheckPassword(changePassword.OldPassword, oldUser.UserPassword)) return Request.CreateResponse(HttpStatusCode.Forbidden, Responses.CreateForbiddenResponseMessage());
+            User newUser = new User()
+            {
+                UserPassword = Crypter.Blowfish.Crypt(changePassword.NewPassword.Trim())
+            };
+            db.Entry(newUser).State = EntityState.Modified;
+            db.SaveChanges();
+            return Request.CreateResponse(HttpStatusCode.Accepted);
         }
 
         // DELETE: api/Users/5
