@@ -106,8 +106,8 @@ namespace HayamiAPI.Controllers
                 {
                     ProductQty = pdts.ProductQty,
                     ProductSize = pdts.ProductSize,
-                    CreatedAt = DateTime.Today,
-                    UpdDate = DateTime.Today,
+                    CreatedAt = DateTime.Now,
+                    UpdDate = DateTime.Now,
                     StorageID = pdts.StorageID
                 };
                 productDetailsData.Add(productDt);
@@ -121,8 +121,8 @@ namespace HayamiAPI.Controllers
                 TypeID = productHd.TypeID,
                 ModelID = productHd.ModelID,
                 ProductDts = productDetailsData,
-                CreatedAt = DateTime.Today,
-                UpdDate = DateTime.Today
+                CreatedAt = DateTime.Now,
+                UpdDate = DateTime.Now
             };
 
             db.ProductHds.Add(newProductHdData);

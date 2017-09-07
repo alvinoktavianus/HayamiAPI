@@ -96,8 +96,8 @@ namespace HayamiAPI.Controllers
             {
                 TypeName = type.TypeName,
                 TypePrice = type.TypePrice,
-                CreatedAt = DateTime.Today,
-                UpdDate = DateTime.Today
+                CreatedAt = DateTime.Now,
+                UpdDate = DateTime.Now
             };
 
             db.Types.Add(newType);

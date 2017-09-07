@@ -99,8 +99,8 @@ namespace HayamiAPI.Controllers
                 StorageCapacity = storage.StorageCapacity,
                 StorageStock = storage.StorageStock,
                 StoragePrior = storage.StoragePrior,
-                CreatedAt = DateTime.Today,
-                UpdDate = DateTime.Today
+                CreatedAt = DateTime.Now,
+                UpdDate = DateTime.Now
             };
             
             db.Storages.Add(newStorage);

@@ -88,8 +88,8 @@ namespace HayamiAPI.Controllers
             Model newModel = new Model()
             {
                 ModelName = model.ModelName,
-                CreatedAt = DateTime.Today,
-                UpdDate = DateTime.Today
+                CreatedAt = DateTime.Now,
+                UpdDate = DateTime.Now
             };
             db.Models.Add(newModel);
             db.SaveChanges();
