@@ -22,6 +22,10 @@ namespace HayamiAPI
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<Models.Type>().Property(t => t.TypePrice).HasPrecision(23, 6);
+            modelBuilder.Entity<TransactionHd>().Property(t => t.TotalDiscount).HasPrecision(23, 6);
+            modelBuilder.Entity<TransactionHd>().Property(t => t.TotalPrice).HasPrecision(23, 6);
+            modelBuilder.Entity<TransactionDt>().Property(t => t.TotalPrice).HasPrecision(23, 6);
+            modelBuilder.Entity<TransactionDt>().Property(t => t.AddDiscountValue).HasPrecision(23, 6);
         }
 
         public System.Data.Entity.DbSet<HayamiAPI.Models.User> Users { get; set; }
@@ -41,6 +45,10 @@ namespace HayamiAPI
         public System.Data.Entity.DbSet<HayamiAPI.Models.ProductDt> ProductDts { get; set; }
 
         public System.Data.Entity.DbSet<HayamiAPI.Models.Discount> Discounts { get; set; }
+
+        public System.Data.Entity.DbSet<HayamiAPI.Models.TransactionHd> TransactionHds { get; set; }
+
+        public System.Data.Entity.DbSet<HayamiAPI.Models.TransactionDt> TransactionDts { get; set; }
 
         // Add a DbSet for each entity type that you want to include in your model. For more information 
         // on configuring and using a Code First model, see http://go.microsoft.com/fwlink/?LinkId=390109.
