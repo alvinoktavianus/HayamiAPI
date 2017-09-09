@@ -33,10 +33,8 @@ namespace HayamiAPI.Migrations
                     })
                 .PrimaryKey(t => t.TransDtID)
                 .ForeignKey("dbo.Discounts", t => t.DiscountID, cascadeDelete: true)
-                .ForeignKey("dbo.ProductHds", t => t.ProductHdID, cascadeDelete: true)
                 .ForeignKey("dbo.TransactionHds", t => t.TransHdID, cascadeDelete: true)
                 .Index(t => t.TransHdID)
-                .Index(t => t.ProductHdID)
                 .Index(t => t.DiscountID);
             
             CreateTable(
@@ -68,12 +66,10 @@ namespace HayamiAPI.Migrations
             DropForeignKey("dbo.TransactionDts", "TransHdID", "dbo.TransactionHds");
             DropForeignKey("dbo.TransactionHds", "CustomerID", "dbo.Customers");
             DropForeignKey("dbo.TransactionHds", "CounterID", "dbo.Counters");
-            DropForeignKey("dbo.TransactionDts", "ProductHdID", "dbo.ProductHds");
             DropForeignKey("dbo.TransactionDts", "DiscountID", "dbo.Discounts");
             DropIndex("dbo.TransactionHds", new[] { "CustomerID" });
             DropIndex("dbo.TransactionHds", new[] { "CounterID" });
             DropIndex("dbo.TransactionDts", new[] { "DiscountID" });
-            DropIndex("dbo.TransactionDts", new[] { "ProductHdID" });
             DropIndex("dbo.TransactionDts", new[] { "TransHdID" });
             DropTable("dbo.TransactionHds");
             DropTable("dbo.TransactionDts");

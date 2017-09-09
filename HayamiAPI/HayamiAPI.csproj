@@ -213,6 +213,14 @@
     <Compile Include="Migrations\201709081751021_CreateTransactionAndDetails.Designer.cs">
       <DependentUpon>201709081751021_CreateTransactionAndDetails.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201709090831115_AddRelationshipInProductHd.cs" />
+    <Compile Include="Migrations\201709090831115_AddRelationshipInProductHd.Designer.cs">
+      <DependentUpon>201709090831115_AddRelationshipInProductHd.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201709090832536_RemoveRelationshipInTransactions.cs" />
+    <Compile Include="Migrations\201709090832536_RemoveRelationshipInTransactions.Designer.cs">
+      <DependentUpon>201709090832536_RemoveRelationshipInTransactions.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Library\Responses.cs" />
     <Compile Include="Models\Counter.cs" />
@@ -309,6 +317,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201709081751021_CreateTransactionAndDetails.resx">
       <DependentUpon>201709081751021_CreateTransactionAndDetails.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201709090831115_AddRelationshipInProductHd.resx">
+      <DependentUpon>201709090831115_AddRelationshipInProductHd.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201709090832536_RemoveRelationshipInTransactions.resx">
+      <DependentUpon>201709090832536_RemoveRelationshipInTransactions.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

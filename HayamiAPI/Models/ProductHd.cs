@@ -32,6 +32,7 @@ namespace HayamiAPI.Models
         [ForeignKey("ModelID")]
         public Model Model { get; set; }
         public virtual ICollection<ProductDt> ProductDts { get; set; }
+        public virtual ICollection<TransactionDt> TransactionDts { get; set; }
         
     }
 }

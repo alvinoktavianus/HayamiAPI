@@ -1,12 +1,14 @@
 ﻿using HayamiAPI.Library;
 using HayamiAPI.Models;
 using System;
-using System.Collections.Generic;
-using System.Diagnostics;
+using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.Description;
+using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace HayamiAPI.Controllers
 {
@@ -24,8 +26,30 @@ namespace HayamiAPI.Controllers
             if (!token.Contains(Authentication.TOKEN_KEYWORD)) return Request.CreateResponse(HttpStatusCode.Forbidden, Responses.CreateForbiddenResponseMessage());
             string accessToken = Request.Headers.GetValues(Authentication.TOKEN_KEYWORD).FirstOrDefault();
             if (Authentication.IsAuthenticated(accessToken)) return Request.CreateResponse(HttpStatusCode.Forbidden, Responses.CreateForbiddenResponseMessage());
-            
-            return Request.CreateResponse(HttpStatusCode.OK, db.TransactionHds);
+
+            var transactions = db.TransactionHds
+                .Include(t => t.TransactionDts)
+                .OrderByDescending(tr => tr.TransDate)
+                .ToList();
+
+            return Request.CreateResponse(HttpStatusCode.OK, transactions);
+        }
+
+        [ResponseType(typeof(TransactionHd))]
+        public HttpResponseMessage GetSingleTransaction(int id)
+        {
+            db.Database.Log = (message) => Debug.WriteLine(message);
+
+            var token = Request.Headers;
+            if (!token.Contains(Authentication.TOKEN_KEYWORD)) return Request.CreateResponse(HttpStatusCode.Forbidden, Responses.CreateForbiddenResponseMessage());
+            string accessToken = Request.Headers.GetValues(Authentication.TOKEN_KEYWORD).FirstOrDefault();
+            if (Authentication.IsAuthenticated(accessToken)) return Request.CreateResponse(HttpStatusCode.Forbidden, Responses.CreateForbiddenResponseMessage());
+
+            TransactionHd transactionHd = db.TransactionHds.Find(id);
+            if (transactionHd == null) return Request.CreateResponse(HttpStatusCode.NotFound, Responses.CreateNotFoundResponseMessage());
+
+            transactionHd.TransactionDts = db.TransactionDts.Where(s => s.TransHdID == transactionHd.TransHdID).ToList();
+            return Request.CreateResponse(HttpStatusCode.OK, transactionHd);
         }
 
         [HttpPost, Route("new")]
@@ -44,8 +68,11 @@ namespace HayamiAPI.Controllers
             {
                 TransactionDt transactionDt = new TransactionDt()
                 {
+                    ProductHdID = trdtls.ProductHdID,
+                    ProductSize = trdtls.ProductSize,
                     TotalPrice = trdtls.TotalPrice,
                     Qty = trdtls.Qty,
+                    QtyOri = trdtls.QtyOri,
                     ReceiveQty = trdtls.ReceiveQty,
                     AddDiscountType = trdtls.AddDiscountType,
                     AddDiscountValue = trdtls.AddDiscountValue,
@@ -63,6 +90,7 @@ namespace HayamiAPI.Controllers
                 TransNo = Generator.GenerateInvoiceNumber(),
                 TransDate = DateTime.Now,
                 CounterID = transactionHd.CounterID,
+                CustomerID = transactionHd.CustomerID,
                 FgStatus = "O",
                 TotalDiscount = transactionHd.TotalDiscount,
                 TotalPrice = transactionHd.TotalPrice,
