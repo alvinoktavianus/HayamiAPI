@@ -13,7 +13,7 @@ namespace HayamiAPI.Library
         {
             string input = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
             var chars = Enumerable.Range(0, 5).Select(x => input[random.Next(0, input.Length)]);
-            return "INVC/" + DateTime.Now.ToString("yyyyMMdd") + "/" + new string(chars.ToArray());
+            return "TN/" + DateTime.Now.ToString("yyyyMMdd") + "/" + new string(chars.ToArray());
         }
     }
 }
