@@ -221,6 +221,10 @@
     <Compile Include="Migrations\201709090832536_RemoveRelationshipInTransactions.Designer.cs">
       <DependentUpon>201709090832536_RemoveRelationshipInTransactions.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201709151613188_ModifyDiscountsAddDiscValue.cs" />
+    <Compile Include="Migrations\201709151613188_ModifyDiscountsAddDiscValue.Designer.cs">
+      <DependentUpon>201709151613188_ModifyDiscountsAddDiscValue.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Library\Responses.cs" />
     <Compile Include="Models\Counter.cs" />
@@ -323,6 +327,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201709090832536_RemoveRelationshipInTransactions.resx">
       <DependentUpon>201709090832536_RemoveRelationshipInTransactions.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201709151613188_ModifyDiscountsAddDiscValue.resx">
+      <DependentUpon>201709151613188_ModifyDiscountsAddDiscValue.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

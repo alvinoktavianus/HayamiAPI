@@ -14,6 +14,7 @@ namespace HayamiAPI.Models
 
         public int DiscountID { get; set; }
         public int DiscDivide { get; set; }
+        public int DiscValue { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime UpdDate { get; set; }
         public string UpdatedBy { get; set; }

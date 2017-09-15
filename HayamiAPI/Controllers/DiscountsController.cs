@@ -95,6 +95,7 @@ namespace HayamiAPI.Controllers
 
             var newDiscount = new Discount()
             {
+                DiscValue = discount.DiscValue,
                 DiscDivide = discount.DiscDivide
             };
 
