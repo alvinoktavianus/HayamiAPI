@@ -27,10 +27,10 @@ namespace HayamiAPI.Models
         public int ModelID { get; set; }
         
         // Relationship definition
-        [ForeignKey("TypeID")]
-        public Type Type { get; set; }
-        [ForeignKey("ModelID")]
-        public Model Model { get; set; }
+        //[ForeignKey("TypeID")]
+        //public Type Type { get; set; }
+        //[ForeignKey("ModelID")]
+        //public Model Model { get; set; }
         public virtual ICollection<ProductDt> ProductDts { get; set; }
         public virtual ICollection<TransactionDt> TransactionDts { get; set; }
         

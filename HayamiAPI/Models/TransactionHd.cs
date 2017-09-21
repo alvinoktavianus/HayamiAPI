@@ -26,10 +26,10 @@ namespace HayamiAPI.Models
         public DateTime UpdDate { get; set; }
         public string UpdatedBy { get; set; }
 
-        [ForeignKey("CounterID")]
-        public Counter Counter { get; set; }
-        [ForeignKey("CustomerID")]
-        public Customer Customer { get; set; }
+        //[ForeignKey("CounterID")]
+        //public Counter Counter { get; set; }
+        //[ForeignKey("CustomerID")]
+        //public Customer Customer { get; set; }
         public virtual ICollection<TransactionDt> TransactionDts { get; set; }
     }
 }

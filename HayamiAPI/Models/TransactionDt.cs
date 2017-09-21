@@ -32,7 +32,7 @@ namespace HayamiAPI.Models
 
         [ForeignKey("TransHdID")]
         public TransactionHd TransactionHd { get; set; }
-        [ForeignKey("DiscountID")]
-        public Discount Dicsount { get; set; }
+        //[ForeignKey("DiscountID")]
+        //public Discount Dicsount { get; set; }
     }
 }

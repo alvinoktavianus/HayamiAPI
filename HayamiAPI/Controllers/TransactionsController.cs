@@ -99,11 +99,30 @@ namespace HayamiAPI.Controllers
                 TransactionDts = transactionDtData
             };
 
+#pragma warning disable CS0472 // The result of the expression is always the same since a value of this type is never equal to 'null'
+            if (transactionHd.CounterID != null)
+#pragma warning restore CS0472 // The result of the expression is always the same since a value of this type is never equal to 'null'
+            {
+                newTransactionData.CounterID = transactionHd.CounterID;
+            }
+#pragma warning disable CS0472 // The result of the expression is always the same since a value of this type is never equal to 'null'
+            else if (transactionHd.CustomerID != null)
+#pragma warning restore CS0472 // The result of the expression is always the same since a value of this type is never equal to 'null'
+            {
+                newTransactionData.CustomerID = transactionHd.CustomerID;
+            }
+
             db.TransactionHds.Add(newTransactionData);
             db.SaveChanges();
 
             return Request.CreateResponse(HttpStatusCode.Created);
         }
 
+        [HttpPut]
+        public HttpResponseMessage UpdateTransactionById(int id)
+        {
+
+            return Request.CreateResponse(HttpStatusCode.Accepted);
+        }
     }
 }
