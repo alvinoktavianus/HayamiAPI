@@ -133,27 +133,32 @@ namespace HayamiAPI.Controllers
                 return Request.CreateResponse(HttpStatusCode.BadRequest);
             }
 
-            List<TransactionDt> transactionDtData = new List<TransactionDt>();
+            bool flag = false;
 
-            foreach (var trdtls in transactionHd.TransactionDts)
+            switch (transactionHd.FgStatus)
             {
-                TransactionDt transactionDt = new TransactionDt()
-                {
-                    ReceiveQty = trdtls.ReceiveQty,
-                    UpdDate = DateTime.Now
-                };
-                transactionDtData.Add(transactionDt);
+                case "O":
+                    break;
+                case "S":
+                    foreach (var trdtls in transactionHd.TransactionDts)
+                    {
+                        var transDtOld = db.TransactionDts.Find(trdtls.TransDtID);
+                        transDtOld.ReceiveQty = trdtls.ReceiveQty;
+                        transDtOld.UpdDate = DateTime.Now;
+                        db.SaveChanges();
+                    }
+
+                    TransactionHd oldTransactionHd = db.TransactionHds.Find(id);
+                    oldTransactionHd.FgStatus = "C";
+                    oldTransactionHd.UpdDate = DateTime.Now;
+
+                    db.SaveChanges();
+                    flag = true;
+                    break;
             }
 
-            TransactionHd oldTransactionHd = db.TransactionHds.Find(id);
-            oldTransactionHd.FgStatus = "C";
-            oldTransactionHd.UpdDate = DateTime.Now;
-            oldTransactionHd.TransactionDts = transactionDtData;
+            return flag ? Request.CreateResponse(HttpStatusCode.Accepted) : Request.CreateResponse(HttpStatusCode.NotAcceptable);
 
-            db.Entry(oldTransactionHd).State = EntityState.Modified;
-            db.SaveChanges();
-
-            return Request.CreateResponse(HttpStatusCode.Accepted);
         }
     }
 }
