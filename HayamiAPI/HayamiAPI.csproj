@@ -233,6 +233,10 @@
     <Compile Include="Migrations\201709211906162_RemoveDiscountIdFKOnTransactionDt.Designer.cs">
       <DependentUpon>201709211906162_RemoveDiscountIdFKOnTransactionDt.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201709240709490_MakeTransHdDtDateTimeNotRequired.cs" />
+    <Compile Include="Migrations\201709240709490_MakeTransHdDtDateTimeNotRequired.Designer.cs">
+      <DependentUpon>201709240709490_MakeTransHdDtDateTimeNotRequired.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Library\Responses.cs" />
     <Compile Include="Models\Counter.cs" />
@@ -344,6 +348,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201709211906162_RemoveDiscountIdFKOnTransactionDt.resx">
       <DependentUpon>201709211906162_RemoveDiscountIdFKOnTransactionDt.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201709240709490_MakeTransHdDtDateTimeNotRequired.resx">
+      <DependentUpon>201709240709490_MakeTransHdDtDateTimeNotRequired.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

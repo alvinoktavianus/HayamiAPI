@@ -15,15 +15,15 @@ namespace HayamiAPI.Models
         [Key]
         public int TransHdID { get; set; }
         public string TransNo { get; set; }
-        public DateTime TransDate { get; set; }
+        public DateTime? TransDate { get; set; }
         public int CounterID { get; set; }
         public int CustomerID { get; set; }
         [MaxLength(1)]
         public string FgStatus { get; set; }
         public decimal TotalDiscount { get; set; }
         public decimal TotalPrice { get; set; }
-        public DateTime CreatedAt { get; set; }
-        public DateTime UpdDate { get; set; }
+        public DateTime? CreatedAt { get; set; }
+        public DateTime? UpdDate { get; set; }
         public string UpdatedBy { get; set; }
 
         //[ForeignKey("CounterID")]

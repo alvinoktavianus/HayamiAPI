@@ -20,14 +20,14 @@ namespace HayamiAPI.Models
         public decimal AddDiscountValue { get; set; }
         public string AddDiscountDesc { get; set; }
         public int DiscountID { get; set; }
-        public DateTime CreatedAt { get; set; }
+        public DateTime? CreatedAt { get; set; }
         public string RejectDesc { get; set; }
-        public DateTime ActionDate { get; set; }
+        public DateTime? ActionDate { get; set; }
         [MaxLength(1)]
         public string FgStatus { get; set; }
         [MaxLength(1)]
         public string FgStatusStr { get; set; }
-        public DateTime UpdDate { get; set; }
+        public DateTime? UpdDate { get; set; }
         public string UpdatedBy { get; set; }
 
         [ForeignKey("TransHdID")]

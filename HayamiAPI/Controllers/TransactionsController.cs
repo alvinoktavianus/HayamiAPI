@@ -99,7 +99,7 @@ namespace HayamiAPI.Controllers
                 TransactionDts = transactionDtData
             };
 
-#pragma warning disable CS0472 // The result of the expression is always the same since a value of this type is never equal to 'null'
+#pragma warning di sable CS0472 // The result of the expression is always the same since a value of this type is never equal to 'null'
             if (transactionHd.CounterID != null)
 #pragma warning restore CS0472 // The result of the expression is always the same since a value of this type is never equal to 'null'
             {
@@ -119,8 +119,39 @@ namespace HayamiAPI.Controllers
         }
 
         [HttpPut]
-        public HttpResponseMessage UpdateTransactionById(int id)
+        public HttpResponseMessage UpdateTransactionById(int id, TransactionHd transactionHd)
         {
+            db.Database.Log = (message) => Debug.WriteLine(message);
+
+            var token = Request.Headers;
+            if (!token.Contains(Authentication.TOKEN_KEYWORD)) return Request.CreateResponse(HttpStatusCode.Forbidden, Responses.CreateForbiddenResponseMessage());
+            string accessToken = Request.Headers.GetValues(Authentication.TOKEN_KEYWORD).FirstOrDefault();
+            if (Authentication.IsAuthenticated(accessToken)) return Request.CreateResponse(HttpStatusCode.Forbidden, Responses.CreateForbiddenResponseMessage());
+
+            if (id != transactionHd.TransHdID)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest);
+            }
+
+            List<TransactionDt> transactionDtData = new List<TransactionDt>();
+
+            foreach (var trdtls in transactionHd.TransactionDts)
+            {
+                TransactionDt transactionDt = new TransactionDt()
+                {
+                    ReceiveQty = trdtls.ReceiveQty,
+                    UpdDate = DateTime.Now
+                };
+                transactionDtData.Add(transactionDt);
+            }
+
+            TransactionHd oldTransactionHd = db.TransactionHds.Find(id);
+            oldTransactionHd.FgStatus = "C";
+            oldTransactionHd.UpdDate = DateTime.Now;
+            oldTransactionHd.TransactionDts = transactionDtData;
+
+            db.Entry(oldTransactionHd).State = EntityState.Modified;
+            db.SaveChanges();
 
             return Request.CreateResponse(HttpStatusCode.Accepted);
         }
