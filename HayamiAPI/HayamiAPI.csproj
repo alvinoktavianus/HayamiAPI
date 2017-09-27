@@ -110,6 +110,7 @@
     <Compile Include="Controllers\CustomersController.cs" />
     <Compile Include="Controllers\DiscountsController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
+    <Compile Include="Controllers\ReturnsController.cs" />
     <Compile Include="Controllers\StoragesController.cs" />
     <Compile Include="Controllers\TransactionsController.cs" />
     <Compile Include="Controllers\TypesController.cs" />
@@ -237,6 +238,10 @@
     <Compile Include="Migrations\201709240709490_MakeTransHdDtDateTimeNotRequired.Designer.cs">
       <DependentUpon>201709240709490_MakeTransHdDtDateTimeNotRequired.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201709241143025_CreateTransactionReturHdDt.cs" />
+    <Compile Include="Migrations\201709241143025_CreateTransactionReturHdDt.Designer.cs">
+      <DependentUpon>201709241143025_CreateTransactionReturHdDt.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Library\Responses.cs" />
     <Compile Include="Models\Counter.cs" />
@@ -247,6 +252,8 @@
     <Compile Include="Models\Storage.cs" />
     <Compile Include="Models\TransactionDt.cs" />
     <Compile Include="Models\TransactionHd.cs" />
+    <Compile Include="Models\TransactionReturDt.cs" />
+    <Compile Include="Models\TransactionReturHd.cs" />
     <Compile Include="Models\Type.cs" />
     <Compile Include="Models\Model.cs" />
     <Compile Include="Models\User.cs" />
@@ -351,6 +358,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201709240709490_MakeTransHdDtDateTimeNotRequired.resx">
       <DependentUpon>201709240709490_MakeTransHdDtDateTimeNotRequired.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201709241143025_CreateTransactionReturHdDt.resx">
+      <DependentUpon>201709241143025_CreateTransactionReturHdDt.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -15,5 +15,12 @@ namespace HayamiAPI.Library
             var chars = Enumerable.Range(0, 5).Select(x => input[random.Next(0, input.Length)]);
             return "TN/" + DateTime.Now.ToString("yyyyMMdd") + "/" + new string(chars.ToArray());
         }
+
+        public static string GenerateReturnNumber()
+        {
+            string input = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            var chars = Enumerable.Range(0, 5).Select(x => input[random.Next(0, input.Length)]);
+            return "TR/" + DateTime.Now.ToString("yyyyMMdd") + "/" + new string(chars.ToArray());
+        }
     }
 }

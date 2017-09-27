@@ -50,6 +50,10 @@ namespace HayamiAPI
 
         public System.Data.Entity.DbSet<HayamiAPI.Models.TransactionDt> TransactionDts { get; set; }
 
+        public System.Data.Entity.DbSet<HayamiAPI.Models.TransactionReturHd> TransactionReturHds { get; set; }
+
+        public System.Data.Entity.DbSet<HayamiAPI.Models.TransactionReturDt> TransactionReturDts { get; set; }
+
         // Add a DbSet for each entity type that you want to include in your model. For more information 
         // on configuring and using a Code First model, see http://go.microsoft.com/fwlink/?LinkId=390109.
 
