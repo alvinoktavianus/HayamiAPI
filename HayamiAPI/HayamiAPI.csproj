@@ -242,6 +242,10 @@
     <Compile Include="Migrations\201709241143025_CreateTransactionReturHdDt.Designer.cs">
       <DependentUpon>201709241143025_CreateTransactionReturHdDt.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201709261826007_RemoveProductSizeValidationOnTransReturDt.cs" />
+    <Compile Include="Migrations\201709261826007_RemoveProductSizeValidationOnTransReturDt.Designer.cs">
+      <DependentUpon>201709261826007_RemoveProductSizeValidationOnTransReturDt.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Library\Responses.cs" />
     <Compile Include="Models\Counter.cs" />
@@ -361,6 +365,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201709241143025_CreateTransactionReturHdDt.resx">
       <DependentUpon>201709241143025_CreateTransactionReturHdDt.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201709261826007_RemoveProductSizeValidationOnTransReturDt.resx">
+      <DependentUpon>201709261826007_RemoveProductSizeValidationOnTransReturDt.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

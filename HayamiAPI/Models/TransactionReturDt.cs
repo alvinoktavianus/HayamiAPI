@@ -10,7 +10,6 @@ namespace HayamiAPI.Models
         public int TransReturDtID { get; set; }
         public int TransReturHdID { get; set; }
         public int ProductHdID { get; set; }
-        [MaxLength(10)]
         public string ProductSize { get; set; }
         public int ReturQty { get; set; }
         [MaxLength(1)]
