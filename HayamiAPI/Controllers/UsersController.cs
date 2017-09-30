@@ -78,10 +78,10 @@ namespace HayamiAPI.Controllers
         {
             db.Database.Log = (message) => Debug.WriteLine(message);
 
-            string email = user.UserEmail.Trim();
+            string username = user.UserName.Trim();
             string password = user.UserPassword.Trim();
 
-            User userData = db.Users.FirstOrDefault(u => u.UserEmail == email);
+            User userData = db.Users.FirstOrDefault(u => u.UserName == username);
             if (userData != null && Crypter.CheckPassword(password, userData.UserPassword))
             {
                 return Ok(userData);
