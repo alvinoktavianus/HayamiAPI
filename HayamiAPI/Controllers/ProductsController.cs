@@ -121,6 +121,11 @@ namespace HayamiAPI.Controllers
                 TypeID = productHd.TypeID,
                 ModelID = productHd.ModelID,
                 ProductDts = productDetailsData,
+                ImagePath1 = productHd.ImagePath1,
+                ImagePath2 = productHd.ImagePath2,
+                ImagePath3 = productHd.ImagePath3,
+                ImagePath4 = productHd.ImagePath4,
+                ImagePath5 = productHd.ImagePath5,
                 CreatedAt = DateTime.Now,
                 UpdDate = DateTime.Now
             };
